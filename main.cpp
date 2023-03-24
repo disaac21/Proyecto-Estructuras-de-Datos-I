@@ -38,7 +38,7 @@ int main(int argc, char** argv) {
             }
             case 2:{
                 while(opcionPila != 3){
-                    cout << "*********Menu Tipo de Pila*********" << endl <<
+                    cout << "+++++++++Menu Tipo de Pila+++++++++" << endl <<
                     "1. Trabajar con ArrayStack " << endl <<
                     "2. Trabajar con LinkedStack " << endl <<
                     "3. Regresar al Menu Principal " << endl <<
@@ -62,7 +62,7 @@ int main(int argc, char** argv) {
             }
             case 3:{
                 while(opcionCola != 3){
-                    cout << "*********Menu Tipo de Cola*********" << endl <<
+                    cout << "<<<<<<<<< Menu Tipo de Cola >>>>>>>>>" << endl <<
                     "1. Trabajar con ArrayQueue " << endl <<
                     "2. Trabajar con LinkedQueue " << endl <<
                     "3. Regresar al Menu Principal " << endl <<
