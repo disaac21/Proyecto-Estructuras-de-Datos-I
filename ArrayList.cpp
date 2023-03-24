@@ -65,6 +65,7 @@ Object* ArrayList::recupera(int pos) {
             }
         }
     }
+    return nullptr;
 }
 
 Object* ArrayList::suprime(int pos) {

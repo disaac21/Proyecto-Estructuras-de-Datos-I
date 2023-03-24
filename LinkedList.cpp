@@ -62,7 +62,7 @@ int LinkedList::localiza(Object* dato){
 	Node* temp = first;
 	int cont = 1;
 	if (this->vacia()) {
-		return NULL;
+		return -1;
 	} else {
 		do {
 			if (temp->getDato() == dato) {
@@ -74,7 +74,6 @@ int LinkedList::localiza(Object* dato){
 		} while (temp!= nullptr);
 	}
 	return -1;
-
 }
 
 Object* LinkedList::recupera(int pos){
@@ -153,7 +152,7 @@ void LinkedList::anula(){
 		Node* temp = this->first->getSiguiente();
 		delete[] this->first;
 		this->first->setDato(temp->getDato());
-	} while (primero != nullptr);
+	} while (&primero != nullptr);
 
 }
 
