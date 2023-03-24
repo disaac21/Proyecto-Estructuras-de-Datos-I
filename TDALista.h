@@ -5,26 +5,21 @@
 
 class TDALista {
 
-	private:
-        Object** array;
-        int capacidad;
-        int size;
+	public:
+	protected:
+		virtual bool inserta(Object*, int)=0;
+		virtual bool append(Object*)=0;
+		virtual int localiza(Object*)=0;
+		virtual Object* recupera(int)=0;
+		virtual Object* suprime(int)=0;
+		virtual void anula()=0;
+		virtual Object* primero()=0;
+		virtual Object* anterior(int)=0;
+		virtual Object* siguiente(int)=0;
+		virtual bool vacia()=0;
+		virtual void imprime()=0;
+		virtual int getSize()=0;
 
-    public:
-        TDALista();
-        ~TDALista();
-        virtual bool inserta(Object*, int);
-        virtual bool append(Object*);
-        virtual int localiza(Object*);
-        virtual Object* recupera(int);
-        virtual Object* suprime(int);
-        virtual void anula();
-        virtual Object* primero();
-        virtual Object* anterior(int);
-        virtual Object* siguiente(int);
-        virtual bool vacia();
-        virtual void imprime();
-        virtual int getSize();
 };
 
 #endif
