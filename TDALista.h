@@ -6,7 +6,7 @@
 class TDALista {
 
 	public:
-	protected:
+	//protected:
 		virtual bool inserta(Object*, int)=0;
 		virtual bool append(Object*)=0;
 		virtual int localiza(Object*)=0;

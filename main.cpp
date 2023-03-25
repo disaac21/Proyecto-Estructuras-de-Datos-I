@@ -1,9 +1,16 @@
 #include <iostream>
 #include <string>
+#include <windows.h>
 //Clases que se incluyen
+#include "TDALista.h"
+#include "ArrayList.h"
 #include "LinkedList.h"
+#include "Alumno.h"
 
 using namespace std;
+
+static TDALista* WorkArrayList = new ArrayList();
+
 int menuOperacionesLista(){
     int opcion = 0;
     cout << endl << "-------------------------"<< endl <<
@@ -53,6 +60,31 @@ void operacionesLista(){
     int opcion = 0;
     do{
         opcion = menuOperacionesLista();
+        string Nombre; int Cuenta, Pos;
+        switch (opcion) {
+            case 1: {
+                cin.ignore();
+                cout << "Ingrese el Nombre del Alumno: ";
+                getline(cin, Nombre);
+                cout << "Ingrese el Número de Cuenta del Alumno: ";
+                cin >> Cuenta;
+                cout << "Ingrese la Posición a Insertar el Alumno: ";
+                cin >> Pos;
+
+                if (WorkArrayList->inserta(new Alumno(Nombre, Cuenta), Pos)) {
+                    cout << "Alumno Insertado con Éxito!" << endl;
+                } else {
+                    cout << "Posición Fuera de Rango" << endl;
+                }
+                
+                break;
+            }
+            case 2:{
+                WorkArrayList->imprime();
+            }
+            default:
+                break;
+        }
     }while(opcion != 10);
 }
 void operacionesPila(){
@@ -67,8 +99,12 @@ void operacionesCola(){
         opcion = menuOperacionesCola();
     }while(opcion != 7);
 }
+
 int main(){
+    
+    SetConsoleCP(CP_UTF8); SetConsoleOutputCP(CP_UTF8);
     int opcionPrincipal = 0, opcionLista = 0, opcionPila = 0, opcionCola = 0;
+
     do{
         cout << "-------------MENU PRINCIPAL-----------------" << endl <<
         "1. Trabajar con Lista " <<  endl <<
@@ -159,4 +195,5 @@ int main(){
             }
         }
     }while(opcionPrincipal);
+    getchar();
 };

@@ -14,32 +14,34 @@ ArrayList::~ArrayList(){
 }
 
 bool ArrayList::inserta(Object* dato, int pos){
-    if (this->vacia())	{
-        if(pos == 1) {
-            array[0] = dato;
-            size++;
-            return true;
-        }else{
-            return false;
-        }
-    }else{
-        if(pos >= 1 && pos <= size) {
-            int RightLimit = pos;
-            int Input = pos--;
-            for(int i = RightLimit; i >= Input; i--){
-                array[i] = array[i-1];
+
+    //Dentro de Rango
+    if (pos >= 1 && pos <= size+1) {
+        Object** temp = new Object* [size+1]; //Lista de Ayuda (Copiar a Principal al Final)
+        
+        if (pos == 1 && size == 0) { //Primera Inserción
+            temp[size] = dato;
+        } else if (pos == size+1) { //Última Posición
+            for (int i = 0; i < size; i++){
+                temp[i] = this->array[i];
             }
-            array[Input] = dato;
-            size++;
-            return true;  
-        }else if(pos == size++) {
-            array[pos] = dato;
-            size++;
-            return true;
-        }else{
-            return false;
+            temp[size] = dato;
+        } else {
+            for (int i = 0; i <= size; i++) { //Inserción en el Medio de la Lista
+                temp[i] = this->array[i];
+                if (i == pos-1) {
+                    temp[i] = dato; //Inserción en Posición
+                } else if (i > pos-1) {
+                    temp[i] = this->array[i-1]; //Corrimiento
+                }
+            }
         }
+        this->array = temp;
+        size++;
+    } else {
+        return false;
     }
+    return true;
 }
 
 bool ArrayList::append(Object* dato) {
@@ -130,7 +132,7 @@ bool ArrayList::vacia() {
 
 void ArrayList::imprime() {
     for (int i = 0; i < this->getSize(); i++) {
-        cout << this->recupera(i);
+        cout << i+1 << ") " << this->recupera(i)->toString() << endl;
     }
 }
 
