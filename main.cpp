@@ -58,11 +58,14 @@ int menuOperacionesCola(){
 }
 void operacionesLista(){
     int opcion = 0;
+    
     do{
         opcion = menuOperacionesLista();
-        string Nombre; int Cuenta, Pos;
+        string Nombre = ""; int Cuenta;
+
         switch (opcion) {
             case 1: {
+                int Pos;
                 cin.ignore();
                 cout << "Ingrese el Nombre del Alumno: ";
                 getline(cin, Nombre);
@@ -81,6 +84,30 @@ void operacionesLista(){
             }
             case 2:{
                 WorkArrayList->imprime();
+                break;
+            }
+
+            case 3:{
+                cout << "Ingrese el Número de Cuenta del Alumno a Encontrar: ";
+                cin >> Cuenta;
+                int poscompare = WorkArrayList->localiza(new Alumno(Nombre, Cuenta));
+                if (poscompare >= 0)
+                    cout << "Alumno Encontrado! Está en la Posición " << poscompare << "." << endl;
+                else
+                    cout << "No Se Ha Encontrado el Alumno." << endl;
+                break;
+            }
+
+            case 4:{
+                int posdelete;
+                cout << "Ingrese la Posición del Alumno a Eliminar: ";
+                cin >> posdelete;
+                Object* AlumnoDelete = WorkArrayList->suprime(posdelete);
+                if (posdelete >= 0)
+                    cout << "Alumno Eliminado!\nSus Datos Eran: " << AlumnoDelete->toString() << "." << endl;
+                else
+                    cout << "No Se Ha Encontrado el Alumno." << endl;
+                break;
             }
             default:
                 break;

@@ -20,6 +20,10 @@ string Alumno::toString(){
     return infoalumno;
 }
 
-bool Alumno::equals(Object*){
-    return NULL;
+bool Alumno::equals(Object* ObjetoCompara){
+    Alumno* AlumnoCompara = dynamic_cast<Alumno*>(ObjetoCompara);
+    if (AlumnoCompara->Cuenta == this->Cuenta) {
+        return true;
+    }
+    return false;
 }

@@ -49,21 +49,23 @@ bool ArrayList::append(Object* dato) {
 }
 
 int ArrayList::localiza(Object* dato) {
-    for(int i = 0; i < this->getSize(); i++) {
-        if(this->recupera(i) == dato) {
-            return i++;
+    if (!vacia()) {
+        for (int i = 0; i < this->getSize(); i++) {
+            if (dato->equals(this->array[i])) {
+                return i+1;
+            }
         }
     }
     return -1;
 }
 
 Object* ArrayList::recupera(int pos) {
-    for (int i = 0; i < this->getSize(); i++) {
-        if (pos > this->getSize()) {
-            return nullptr;
-        } else {
-            if (i == pos){
-                return array[i];
+    if (!vacia()) {
+        if (pos < this->getSize()) {
+            for (int i = 0; i < this->getSize(); i++) {
+                if (i == pos){
+                    return array[i];
+                }
             }
         }
     }
@@ -71,16 +73,16 @@ Object* ArrayList::recupera(int pos) {
 }
 
 Object* ArrayList::suprime(int pos) {
-    Object* returnValue = nullptr;
+    Object* ObjetoDelete = nullptr;
 
     if(pos >= 1 && pos <= this->getSize()) {
-        returnValue = this->recupera(pos-1);
+        ObjetoDelete = this->recupera(pos-1);
         for(int i = pos-1; i < this->getSize()-1; i++) {
             array[i] = array[i+1];
         }
         array[size-1] = nullptr;
         size--;
-        return returnValue;
+        return ObjetoDelete;
     } else {
         return nullptr;
     }
