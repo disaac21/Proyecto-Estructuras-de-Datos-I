@@ -345,7 +345,7 @@ int main(){
         "1. Trabajar con Lista " <<  endl <<
         "2. Trabajar con Pilas " << endl <<
         "3. Trabajar con Colas " << endl <<
-        "0. Salir " << endl <<
+        "4. Salir " << endl <<
         "Ingrese una opcion: ";
         cin >> opcionPrincipal;
         switch(opcionPrincipal){
@@ -429,6 +429,6 @@ int main(){
                 break;
             }
         }
-    }while(opcionPrincipal);
+    }while(opcionPrincipal!=4);
     getchar();
 };
