@@ -10,6 +10,9 @@
 #include "LinkedStack.h"
 #include "Alumno.h"
 #include "Simbolo.h"
+#include "TDACola.h"
+#include "ArrayQueue.h"
+#include "LinkedQueue.h"
 
 using namespace std;
 
@@ -227,10 +230,54 @@ void operacionesPila(TDAPila* stack){
         }
     }while(opcion != 7);
 }
-void operacionesCola(){
+void operacionesCola(TDACola* Cola){
     int opcion = 0;
     do{
         opcion = menuOperacionesCola();
+        string Nombre = ""; 
+        int Cuenta;
+
+        switch (opcion)
+        {
+        case 1:
+            cout << endl;
+            cout << "Ingrese el nombre del alumno: ";
+            cin >> Nombre;
+            cout << "Ingrese el numero de cuenta del alumno: ";
+            cin >> Cuenta;
+
+            Cola->encolar(new Alumno(Nombre, Cuenta));
+            break;
+
+        case 2:
+            Cola->desencolar();
+            break;
+
+        case 3:
+            Cola->verfrente();
+            break;
+
+        case 4:
+            if (Cola->IsVacio())
+            {
+                cout<< endl << "Está Vacía" << endl;
+            }else{
+                cout<< endl << "No Está Vacía" << endl;
+            }
+            break;
+
+        case 5:
+            Cola->imprime();
+            break;
+
+        case 6:
+            Cola->anula();
+            break;
+
+        default:
+            break;
+        }
+
     }while(opcion != 7);
 }
 
@@ -240,6 +287,8 @@ int main(){
     int opcionPrincipal = 0, opcionLista = 0, opcionPila = 0, opcionCola = 0;
     TDALista* WorkArrayList = new ArrayList();
     TDAPila* workArrayStack = new ArrayStack();
+    static TDACola* ColaArreglo = new ArrayQueue();
+    static TDACola* ColaNodos = new LinkedQueue();
     do{
         cout << "-------------MENU PRINCIPAL-----------------" << endl <<
         "1. Trabajar con Lista " <<  endl <<
@@ -309,11 +358,11 @@ int main(){
                     cin >> opcionCola;
                     switch(opcionCola){
                         case 1:{
-                            operacionesCola();
+                            operacionesCola(ColaArreglo);
                             break;
                         }
                         case 2:{
-                            operacionesCola();
+                            operacionesCola(ColaNodos);
                             break;
                         }
                         case 3:{
