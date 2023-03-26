@@ -78,23 +78,27 @@ void operacionesLista(TDALista* WorkingList){
 
         switch (opcion) {
             case 1: {
-                int Pos;
-                cin.ignore();
-                cout << "Ingrese el Nombre del Alumno: ";
-                getline(cin, Nombre);
-                cout << "Ingrese el Número de Cuenta del Alumno: ";
-                cin >> Cuenta;
-                cout << "Ingrese la Posición a Insertar el Alumno: ";
-                cin >> Pos;
+                int repetirInserta = 1;
+                while(repetirInserta == 1){
+                    int Pos;
+                    cin.ignore();
+                    cout << "Ingrese el Nombre del Alumno: ";
+                    getline(cin, Nombre);
+                    cout << "Ingrese el Número de Cuenta del Alumno: ";
+                    cin >> Cuenta;
+                    cout << "Ingrese la Posición a Insertar el Alumno: ";
+                    cin >> Pos;
 
-                if (WorkingList->inserta(new Alumno(Nombre, Cuenta), Pos)) {
-                    cout << "Alumno Insertado con Éxito!" << endl;
-                } else {
-                    cout << "Posición Fuera de Rango" << endl;
+                    if (WorkingList->inserta(new Alumno(Nombre, Cuenta), Pos)) {
+                        cout << "Alumno Insertado con Éxito!" << endl;
+                    } else {
+                        cout << "Posición Fuera de Rango" << endl;
+                    }
+                    repetirInserta = repetirCiclo();
                 }
-                
                 break;
             }
+
             case 2:{
                 if (WorkingList->vacia()){
                     cout << "La Lista Está Vacía.";
@@ -112,7 +116,7 @@ void operacionesLista(TDALista* WorkingList){
                     cin >> Cuenta;
                     int poscompare = WorkingList->localiza(new Alumno(Nombre, Cuenta));
                     if (poscompare > 0){
-                        cout << "Alumno Encontrado! Está en la Posición " << poscompare << "." << endl;
+                        cout << "Alumno Encontrado! " << WorkingList->recupera(poscompare)->toString() << " Está en la Posición " << poscompare << "." << endl;
                     } else {
                         cout << "No Se Ha Encontrado el Alumno." << endl;
                     }
@@ -137,10 +141,14 @@ void operacionesLista(TDALista* WorkingList){
             }
 
             case 5:{
-                if (WorkingList->vacia())
+                if (WorkingList->vacia()) {
                     cout << "La Lista Está Vacía.";
-                else
-                    cout << "Ya Hay Elementos en la Lista.";
+                } else {
+                    if (WorkingList->getSize() == 1)
+                        cout << "Hay " << WorkingList->getSize() << " Elemento en la Lista.";
+                    else
+                        cout << "Hay " << WorkingList->getSize() << " Elementos en la Lista.";
+                }
                 break;
             }
 
