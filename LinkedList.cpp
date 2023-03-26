@@ -4,54 +4,63 @@ using namespace std;
 
 LinkedList::LinkedList()
 {
-	first=0;
-	ultimo=0;
+	first=nullptr;
+	ultimo=nullptr;
 	size=0;
 }
 
-LinkedList::~LinkedList()
-{
-	if(first)
+LinkedList::~LinkedList() {
+	do{
 		delete first;
+		first = nullptr;
+	} while (first != nullptr);
+	size = 0;
 }
 
-bool LinkedList::inserta(Object* pData, int pos){
-	if(pos >= 1 && pos <= size + 1){ 
-		Node* nuevoNodo = new Node();
-		nuevoNodo->setDato(pData);
-		
-		if(vacia()){
-			first = nuevoNodo;
-			ultimo = nuevoNodo;
-			size++;
-			return true;
-		}else{
-			//el rango es válido
-			Node* temp = first;
-			int i = 1;
-			while(i<pos){
+bool LinkedList::inserta(Object* dato, int pos){
+
+	//Dentro de Rango
+    if (pos >= 1 && pos <= size+1) {
+		Node* temp = new Node(); //Nodos de Ayuda
+		Node* nuevo = new Node();
+
+		//first->getDato()->equals(nullptr) &&  (inside if condition)
+		if (pos == 1 && size == 0) { // Primera Inserción
+			first = new Node();
+			first->setDato(dato);
+			first->setAnterior(nullptr);
+		} else if (pos == size+1) { //Última Inserción
+			temp = first;
+			nuevo->setDato(dato);
+			while (temp->getSiguiente())
 				temp = temp->getSiguiente();
+			temp->setSiguiente(nuevo);
+			nuevo->setAnterior(temp);
+		} else { //Inserción en el Medio de la Lista
+			temp = first;
+			nuevo->setDato(dato);
+			int i = 0;
+			while (temp) {
 				i++;
+				if (i == pos) {
+					nuevo->setSiguiente(temp);
+					if (i == 1) { //Exchange el Primero
+						nuevo->setAnterior(NULL);
+						first = nuevo;
+					}
+					if (temp->getAnterior()) //Corrimiento
+						temp->getAnterior()->setSiguiente(nuevo);					
+						nuevo->setAnterior(temp->getAnterior());
+					temp->setAnterior(nuevo);
+					break;
+				}
+				temp = temp->getSiguiente(); //Después de Asignar y Correr
 			}
-			//actualizar los enlaces
-			if(temp->getAnterior())
-				temp->getAnterior()->setSiguiente(nuevoNodo);
-				
-			nuevoNodo->setSiguiente(temp);
-			nuevoNodo->setAnterior(temp->getAnterior());
-			temp->setAnterior(nuevoNodo);
-			if (pos == size+1){
-				ultimo = nuevoNodo;
-			}
-			if (pos == 1){
-				first = nuevoNodo;
-			}
-			size++;
-			return true;			
-		}	
-	} else {
-		return false;
+		}
+
 	}
+	size++;
+	return true;
 }
 
 bool LinkedList::append(Object* dato){
@@ -59,100 +68,76 @@ bool LinkedList::append(Object* dato){
 }
 
 int LinkedList::localiza(Object* dato){
-	Node* temp = first;
-	int cont = 1;
-	if (this->vacia()) {
-		return -1;
-	} else {
-		do {
-			if (temp->getDato() == dato) {
-				return cont;
-			} else {
-				cont++;
-				temp = temp->getSiguiente();
+	if (!vacia()) {
+		Node* temp = first;
+		int i = 1;
+		while (temp) {
+			if (dato->equals(temp->getDato())){
+				return i;
 			}
-		} while (temp!= nullptr);
+			i++;
+			temp = temp->getSiguiente();
+		}
 	}
 	return -1;
 }
 
 Object* LinkedList::recupera(int pos){
-	int num = 1;
-	Node* temp = new Node();
-	temp->setDato(this->primero());
-	if(pos > size){
-			return nullptr;
-	}else{
-		while(num == pos){
-			temp->setDato(temp->getSiguiente()->getDato());
-			num++;
+	if (!vacia()) {
+		if (pos <= size){
+			Node* temp = first;
+			int i = 1;
+			while (temp) {
+				if (i == pos){
+					return temp->getDato();
+				}
+				temp = temp->getSiguiente();
+				i++;
+			}
 		}
-		return temp->getDato();
 	}
+	return nullptr;
 }
 
 Object* LinkedList::suprime(int pos){
-	if (pos < 0 && pos > size){
-            return NULL;
-	} else {
-		int index = 0;
-        Node* nodoRecuperado;
-        Node* anterior;
-        Node* siguiente;
 
-        if(pos < size - pos){
-			nodoRecuperado->setDato(this->primero());
-            while(index < pos){
-				nodoRecuperado->setDato(nodoRecuperado->getSiguiente()->getDato());
-                index++;
-            }
-        } else {
-            nodoRecuperado = ultimo;
-            index = size;
-            while(index > pos){
-				nodoRecuperado->setDato(nodoRecuperado->getAnterior()->getDato());
-                index--;
-            }
-        }
-		Object* returnDato;
-		Node* eliminar;
-        if(pos == 1 && size == 1){
-            anula();
-            size--;
-            return this->primero();
-        } else if (pos == 1 && size > 1) {
-            returnDato = this->primero();
-            eliminar->setDato(this->primero());
-			first->setDato(first->getSiguiente()->getDato());
-			first->getSiguiente()->setDato(nullptr);
-            delete eliminar;
-            first->getAnterior()->setDato(nullptr);
-            size--;
-			return returnDato;
-        }else if (pos == this->getSize()) {
-            eliminar->setDato(this->ultimo->getDato());
-            this->ultimo->setDato(this->ultimo->getAnterior()->getDato());
-            delete eliminar;
-			this->ultimo->getSiguiente()->setDato(nullptr);
-            size--;
-            return this->ultimo->getDato();
-        } else {
-			nodoRecuperado->getAnterior()->getSiguiente()->setDato(nodoRecuperado->getSiguiente()->getDato());
-			nodoRecuperado->getSiguiente()->getAnterior()->setDato(nodoRecuperado->getAnterior()->getDato());
-            returnDato = nodoRecuperado->getDato();
-            delete nodoRecuperado;
-            size--;
-            return returnDato;
-        }
+	Object* ObjetoDelete; //Objeto Borrado (Retornar)
+	if (pos >= 1 && pos <= size) {
+		Node* temp = first;
+		int i = 0;
+		while (temp) {
+			i++;
+			if (i == pos) {
+				if (pos == 1 && size == 1){
+					temp = first;
+					first = nullptr;
+					return temp->getDato();
+				} else if (i == size) {
+					temp = ultimo;
+					ultimo = ultimo->getAnterior();
+					return temp->getDato();
+				} else {
+					//if (temp->getAnterior())
+						temp->getAnterior()->setSiguiente(temp->getSiguiente());
+					//if (temp->getSiguiente())
+						temp->getSiguiente()->setAnterior(temp->getAnterior());
+						return temp->getDato();
+				}
+				temp = nullptr;
+				size--;
+			}
+			temp = temp->getSiguiente();
+		}
 	}
+	return nullptr;
 }
 
 void LinkedList::anula(){
 	do{
-		Node* temp = this->first->getSiguiente();
-		delete[] this->first;
-		this->first->setDato(temp->getDato());
-	} while (&primero != nullptr);
+		delete first;
+		first = nullptr;
+	} while (first != nullptr);
+	size = 0;
 
 }
 
@@ -194,20 +179,19 @@ Object* LinkedList::siguiente(int pos){
 }
 
 bool LinkedList::vacia(){	
-	if (size >= 0) {
-		return false;
-	} else {
-		return true;
-	}
+	bool condicion = this->getSize() == 0;
+    return condicion;
 }
 
 void LinkedList::imprime(){
 	Node* current = first;
-		while (current) {
-			cout << current->getDato();
-			current = current->getSiguiente();
-		}
-		cout << endl;
+	int i = 0;
+	while (current) {
+		cout << i+1 << ") " << current->getDato()->toString() << endl;
+		current = current->getSiguiente();
+		i++;
+	}
+	cout << endl;
 
 }
 

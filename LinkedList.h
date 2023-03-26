@@ -6,11 +6,15 @@
 
 class LinkedList : public TDALista
 {
+
+	private:
+		Node* first;
+		Node* ultimo;
+		int size;
+
 	public:
 		LinkedList();
-		~LinkedList();
-		
-		
+		~LinkedList();	
 		virtual bool inserta(Object*, int);
 		virtual bool append(Object*);
 		virtual int localiza(Object*);
@@ -23,13 +27,6 @@ class LinkedList : public TDALista
 		virtual bool vacia();
 		virtual void imprime();
 		virtual int getSize();
-
-	protected:
-		Node* first;
-		Node* ultimo;
-		int size;
-	
-		
 		
 };
 

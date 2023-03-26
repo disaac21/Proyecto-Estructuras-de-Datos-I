@@ -337,6 +337,7 @@ int main(){
     SetConsoleCP(CP_UTF8); SetConsoleOutputCP(CP_UTF8);
     int opcionPrincipal = 0, opcionLista = 0, opcionPila = 0, opcionCola = 0;
     TDALista* WorkArrayList = new ArrayList();
+    TDALista* WorkLinkedList = new LinkedList();
     TDAPila* workArrayStack = new ArrayStack();
     TDAPila* workLinkedStack = new ArrayStack();
     TDACola* ColaArreglo = new ArrayQueue();
@@ -364,7 +365,7 @@ int main(){
                             break;
                         }
                         case 2:{
-                            operacionesLista(nullptr);
+                            operacionesLista(WorkLinkedList);
                             break;
                         }
                         case 3:{
