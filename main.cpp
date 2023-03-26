@@ -338,8 +338,9 @@ int main(){
     int opcionPrincipal = 0, opcionLista = 0, opcionPila = 0, opcionCola = 0;
     TDALista* WorkArrayList = new ArrayList();
     TDAPila* workArrayStack = new ArrayStack();
-    static TDACola* ColaArreglo = new ArrayQueue();
-    static TDACola* ColaNodos = new LinkedQueue();
+    TDAPila* workLinkedStack = new ArrayStack();
+    TDACola* ColaArreglo = new ArrayQueue();
+    TDACola* ColaNodos = new LinkedQueue();
     do{
         cout << "-------------MENU PRINCIPAL-----------------" << endl <<
         "1. Trabajar con Lista " <<  endl <<
@@ -388,7 +389,7 @@ int main(){
                             break;
                         }
                         case 2:{
-                            operacionesPila(workArrayStack);
+                            operacionesPila(workLinkedStack);
                             break;
                         }
                         case 3:{
