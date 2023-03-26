@@ -50,50 +50,48 @@ bool ArrayList::append(Object* dato) {
 
 int ArrayList::localiza(Object* dato) {
     if (!vacia()) {
-        for (int i = 0; i < this->getSize(); i++) {
-            if (dato->equals(this->array[i])) {
+        for (int i = 0; i < size; i++)
+            if (dato->equals(this->array[i]))
                 return i+1;
-            }
-        }
     }
     return -1;
 }
 
 Object* ArrayList::recupera(int pos) {
     if (!vacia()) {
-        if (pos < this->getSize()) {
-            for (int i = 0; i < this->getSize(); i++) {
-                if (i == pos){
-                    return array[i];
-                }
-            }
+        if (pos <= this->getSize()) {
+            return this->array[pos-1];
         }
     }
     return nullptr;
 }
 
 Object* ArrayList::suprime(int pos) {
-    Object* ObjetoDelete = nullptr;
 
-    if(pos >= 1 && pos <= this->getSize()) {
-        ObjetoDelete = this->recupera(pos-1);
-        for(int i = pos-1; i < this->getSize()-1; i++) {
-            array[i] = array[i+1];
+    Object* ObjetoDelete; //Objeto Borrado (Retornar)
+    if (pos >= 1 && pos <= size) {
+        Object **temp = new Object*[size-1]; //Lista de Ayuda (Copiar a Principal al Final)
+
+        ObjetoDelete = this->array[pos-1]; //Objeto Borrado (Retornar)
+        for (int i = 0; i < size-1; i++) { //Fixing Temp (Corriemientos)
+            temp[i] = this->array[i];
+            if (i >= pos-1)
+                temp[i] = this->array[i+1];
         }
-        array[size-1] = nullptr;
+        array = temp;
         size--;
-        return ObjetoDelete;
-    } else {
-        return nullptr;
     }
+    return ObjetoDelete;
 }
 
 void ArrayList::anula() {
-    if (size == 0);
+    if (size == 0)
         return;
     for (int i = 0; i < this->getSize(); i++)
-        delete array[i];
-    size = 0;
+        delete this->array[i];
+    
+    this->array = new Object*[capacidad];
+    this->size = 0;
 }
 
 Object* ArrayList::primero() {
@@ -134,7 +132,7 @@ bool ArrayList::vacia() {
 
 void ArrayList::imprime() {
     for (int i = 0; i < this->getSize(); i++) {
-        cout << i+1 << ") " << this->recupera(i)->toString() << endl;
+        cout << i+1 << ") " << this->array[i]->toString() << endl;
     }
 }
 

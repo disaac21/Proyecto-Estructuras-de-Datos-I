@@ -111,10 +111,11 @@ void operacionesLista(TDALista* WorkingList){
                     cout << "Ingrese el Número de Cuenta del Alumno a Encontrar: ";
                     cin >> Cuenta;
                     int poscompare = WorkingList->localiza(new Alumno(Nombre, Cuenta));
-                    if (poscompare >= 0)
+                    if (poscompare > 0){
                         cout << "Alumno Encontrado! Está en la Posición " << poscompare << "." << endl;
-                    else
+                    } else {
                         cout << "No Se Ha Encontrado el Alumno." << endl;
+                    }
                 }
                 break;
             }
@@ -127,7 +128,7 @@ void operacionesLista(TDALista* WorkingList){
                     cout << "Ingrese la Posición del Alumno a Eliminar: ";
                     cin >> posdelete;
                     Object* AlumnoDelete = WorkingList->suprime(posdelete);
-                    if (posdelete >= 0)
+                    if (posdelete > 0)
                         cout << "Alumno Eliminado!\nSus Datos Eran: " << AlumnoDelete->toString() << "." << endl;
                     else
                         cout << "No Se Ha Encontrado el Alumno." << endl;
@@ -150,8 +151,8 @@ void operacionesLista(TDALista* WorkingList){
                     int posfind;
                     cout << "Ingrese la Posición del Alumno a Encontrar: ";
                     cin >> posfind;
-                    Object* AlumnoFind = WorkingList->recupera(posfind+1);
-                    if (posfind >= 0)
+                    Object* AlumnoFind = WorkingList->recupera(posfind);
+                    if (posfind > 0 && posfind <= WorkingList->getSize())
                         cout << "Alumno Encontrado!\nSus Datos Son: " << AlumnoFind->toString() << "." << endl;
                     else
                         cout << "No Se Ha Encontrado el Alumno." << endl;
@@ -159,10 +160,52 @@ void operacionesLista(TDALista* WorkingList){
                 break;
             }
 
+            case 7:{
+                if (WorkingList->vacia()){
+                    cout << "La Lista Está Vacía.";
+                } else {
+                    int posfindnext;
+                    cout << "Ingrese la Posición del Alumno a Encontrar su Siguiente: ";
+                    cin >> posfindnext;
+                    Object* AlumnoFindNext = WorkingList->recupera(posfindnext+1);
+                    if (posfindnext > 0 && posfindnext <= WorkingList->getSize()-1)
+                        cout << "Alumno Encontrado!\nSus Datos Son: " << AlumnoFindNext->toString() << "." << endl;
+                    else
+                        cout << "Este Alumno es el Último de la Lista." << endl;
+                }
+                break;
+            }
+
+            case 8:{
+                if (WorkingList->vacia()){
+                    cout << "La Lista Está Vacía.";
+                } else {
+                    int posfindprev;
+                    cout << "Ingrese la Posición del Alumno a Encontrar su Anterior: ";
+                    cin >> posfindprev;
+                    Object* AlumnoFindPrev = WorkingList->recupera(posfindprev-1);
+                    if (posfindprev > 1 && posfindprev <= WorkingList->getSize())
+                        cout << "Alumno Encontrado!\nSus Datos Son: " << AlumnoFindPrev->toString() << "." << endl;
+                    else
+                        cout << "Este Alumno es el Primero de la Lista." << endl;
+                }
+                break;
+            }
+
+            case 9:{
+                if (WorkingList->vacia()) {
+                    cout << "La Lista Está Vacía.";
+                } else {
+                    WorkingList->anula();
+                    cout << "Lista Vaciada.";
+                }
+                break;
+            }
+
             default:
                 break;
         }
-    }while(opcion != 10);
+    } while(opcion != 10);
 }
 void operacionesPila(TDAPila* stack){
     int opcion = 0;
