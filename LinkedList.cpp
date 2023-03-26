@@ -29,6 +29,7 @@ bool LinkedList::inserta(Object* dato, int pos){
 			first = new Node();
 			first->setDato(dato);
 			first->setAnterior(nullptr);
+			size++;
 		} else if (pos == size+1) { //Última Inserción
 			temp = first;
 			nuevo->setDato(dato);
@@ -36,6 +37,7 @@ bool LinkedList::inserta(Object* dato, int pos){
 				temp = temp->getSiguiente();
 			temp->setSiguiente(nuevo);
 			nuevo->setAnterior(temp);
+			size++;
 		} else { //Inserción en el Medio de la Lista
 			temp = first;
 			nuevo->setDato(dato);
@@ -45,21 +47,22 @@ bool LinkedList::inserta(Object* dato, int pos){
 				if (i == pos) {
 					nuevo->setSiguiente(temp);
 					if (i == 1) { //Exchange el Primero
-						nuevo->setAnterior(NULL);
+						nuevo->setAnterior(nullptr);
 						first = nuevo;
-					}
-					if (temp->getAnterior()) //Corrimiento
+					} else {
 						temp->getAnterior()->setSiguiente(nuevo);					
 						nuevo->setAnterior(temp->getAnterior());
-					temp->setAnterior(nuevo);
+						temp->setAnterior(nuevo);
+						nuevo->setSiguiente(temp);
+					}
 					break;
 				}
 				temp = temp->getSiguiente(); //Después de Asignar y Correr
 			}
+			size++;
 		}
 
 	}
-	size++;
 	return true;
 }
 
@@ -110,21 +113,23 @@ Object* LinkedList::suprime(int pos){
 			if (i == pos) {
 				if (pos == 1 && size == 1){
 					temp = first;
-					first = nullptr;
+					anula();
 					return temp->getDato();
 				} else if (i == size) {
 					temp = ultimo;
-					ultimo = ultimo->getAnterior();
+					ultimo = nullptr;
+					ultimo = temp->getAnterior();
+					size--;
 					return temp->getDato();
 				} else {
 					//if (temp->getAnterior())
 						temp->getAnterior()->setSiguiente(temp->getSiguiente());
 					//if (temp->getSiguiente())
 						temp->getSiguiente()->setAnterior(temp->getAnterior());
+						size--;
 						return temp->getDato();
 				}
-				temp = nullptr;
-				size--;
+				//temp = nullptr;
 			}
 			temp = temp->getSiguiente();
 		}

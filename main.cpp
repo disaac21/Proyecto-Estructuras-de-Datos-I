@@ -89,7 +89,7 @@ void operacionesLista(TDALista* WorkingList){
                     cout << "Ingrese la Posición a Insertar el Alumno: ";
                     cin >> Pos;
 
-                    if (WorkingList->inserta(new Alumno(Nombre, Cuenta), Pos)) {
+                    if (WorkingList->inserta(new Alumno(Nombre, Cuenta), Pos) && Pos <= WorkingList->getSize()) {
                         cout << "Alumno Insertado con Éxito!" << endl;
                     } else {
                         cout << "Posición Fuera de Rango" << endl;
@@ -115,7 +115,7 @@ void operacionesLista(TDALista* WorkingList){
                     cout << "Ingrese el Número de Cuenta del Alumno a Encontrar: ";
                     cin >> Cuenta;
                     int poscompare = WorkingList->localiza(new Alumno(Nombre, Cuenta));
-                    if (poscompare > 0){
+                    if (poscompare > 0 && poscompare <= WorkingList->getSize()){
                         cout << "Alumno Encontrado! " << WorkingList->recupera(poscompare)->toString() << " Está en la Posición " << poscompare << "." << endl;
                     } else {
                         cout << "No Se Ha Encontrado el Alumno." << endl;
@@ -178,8 +178,10 @@ void operacionesLista(TDALista* WorkingList){
                     Object* AlumnoFindNext = WorkingList->recupera(posfindnext+1);
                     if (posfindnext > 0 && posfindnext <= WorkingList->getSize()-1)
                         cout << "Alumno Encontrado!\nSus Datos Son: " << AlumnoFindNext->toString() << "." << endl;
-                    else
+                    else if (posfindnext == WorkingList->getSize())
                         cout << "Este Alumno es el Último de la Lista." << endl;
+                    else
+                        cout << "Posición Fuera de Rango." << endl;
                 }
                 break;
             }
@@ -194,8 +196,10 @@ void operacionesLista(TDALista* WorkingList){
                     Object* AlumnoFindPrev = WorkingList->recupera(posfindprev-1);
                     if (posfindprev > 1 && posfindprev <= WorkingList->getSize())
                         cout << "Alumno Encontrado!\nSus Datos Son: " << AlumnoFindPrev->toString() << "." << endl;
-                    else
+                    else if (posfindprev == 1)
                         cout << "Este Alumno es el Primero de la Lista." << endl;
+                    else
+                        cout << "Posición Fuera de Rango." << endl;
                 }
                 break;
             }
