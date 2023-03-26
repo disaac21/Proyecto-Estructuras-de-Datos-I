@@ -14,6 +14,8 @@ void ArrayStack::anula(){
     if(!vacia()){
         for (int i = 0; i < top; i++)
             delete stack[i];
+        stack = new Object*[100];
+        this->top = 0;
     }
     
 }
@@ -45,7 +47,7 @@ Object* ArrayStack::pop(){
 
 }
 void ArrayStack::imprime(){
-    for (int i = top-1; i >= top; i--){
+    for (int i = top-1; i >= 0; i--){
         cout << i+1 << ".- " << this->stack[i]->toString() << endl;
     }
     

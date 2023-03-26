@@ -5,7 +5,8 @@ Simbolo::Simbolo(char car){
 }
 Simbolo::~Simbolo(){}
 string Simbolo::toString(){
-    string toString_caracter = caracter + "";
+    string toString_caracter;
+    toString_caracter += caracter;
     return toString_caracter;
 }
 bool Simbolo::equals(Object* simbolo){

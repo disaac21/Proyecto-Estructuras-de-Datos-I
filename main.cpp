@@ -5,10 +5,22 @@
 #include "TDALista.h"
 #include "ArrayList.h"
 #include "LinkedList.h"
+#include "TDAPila.h"
+#include "ArrayStack.h"
+#include "LinkedStack.h"
 #include "Alumno.h"
+#include "Simbolo.h"
 
 using namespace std;
 
+int repetirCiclo(){
+    int opcionRepetirCiclo = 0;
+    cout << "1. Seguir Ingresando" << endl <<
+    "2. Volver al menu de Operaciones" << endl
+    << "Escoga: ";
+    cin >> opcionRepetirCiclo;
+    return opcionRepetirCiclo;
+}
 int menuOperacionesLista(){
     int opcion = 0;
     cout << endl << "-------------------------"<< endl <<
@@ -149,10 +161,70 @@ void operacionesLista(TDALista* WorkingList){
         }
     }while(opcion != 10);
 }
-void operacionesPila(){
+void operacionesPila(TDAPila* stack){
     int opcion = 0;
     do{
         opcion = menuOperacionesPila();
+        char caracter;
+
+        switch(opcion){
+            case 1:{
+                int repetirInserta = 1;
+                while(repetirInserta == 1){
+                    cout << "Ingrese un simbolo: ";
+                    cin >> caracter;
+                    stack->push(new Simbolo(caracter));
+                    cout << "Simbolo empujado correctamente" << endl;
+                    repetirInserta = repetirCiclo();
+                }
+                break;
+            }
+            case 2:{
+                if(stack->vacia()){
+                    cout << "La pila esta vacia" << endl;
+                }
+                else{
+                    cout << "El elemento sacado de la Pila es: " << stack->pop()->toString() << endl;
+                }
+                break;
+            }
+            case 3:{
+                if(!(stack->vacia()))
+                    cout << "El elemento al tope de la pila es: " << stack->peek()->toString() << endl;
+                else
+                cout << "La Pila esta vacia" << endl;
+                break;
+            }
+            case 4:{
+                if(stack->vacia())
+                    cout << "La Pila esta vacia" << endl;
+                else
+                    cout << "La Pila no esta vacia" << endl;
+                break;
+            }
+            case 5:{
+                if(stack->vacia())
+                    cout << "La Pila no contiene elementos" << endl;
+                else
+                    stack->imprime();
+                break;
+            }
+            case 6:{
+                if(stack->vacia()){
+                    cout << "La Pila no contiene elementos" << endl;
+
+                }else{
+                    stack->anula();
+                    cout << "Pila vaciada exitosamente" << endl;
+                }
+
+                break;
+            }
+            case 7:{
+                cout << endl;
+                break;
+            }
+        }
     }while(opcion != 7);
 }
 void operacionesCola(){
@@ -167,7 +239,7 @@ int main(){
     SetConsoleCP(CP_UTF8); SetConsoleOutputCP(CP_UTF8);
     int opcionPrincipal = 0, opcionLista = 0, opcionPila = 0, opcionCola = 0;
     TDALista* WorkArrayList = new ArrayList();
-
+    TDAPila* workArrayStack = new ArrayStack();
     do{
         cout << "-------------MENU PRINCIPAL-----------------" << endl <<
         "1. Trabajar con Lista " <<  endl <<
@@ -212,11 +284,11 @@ int main(){
                     cin >> opcionPila;
                     switch(opcionPila){
                         case 1:{
-                            operacionesPila();
+                            operacionesPila(workArrayStack);
                             break;
                         }
                         case 2:{
-                            operacionesPila();
+                            operacionesPila(workArrayStack);
                             break;
                         }
                         case 3:{
