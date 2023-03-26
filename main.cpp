@@ -9,8 +9,6 @@
 
 using namespace std;
 
-static TDALista* WorkArrayList = new ArrayList();
-
 int menuOperacionesLista(){
     int opcion = 0;
     cout << endl << "-------------------------"<< endl <<
@@ -56,7 +54,7 @@ int menuOperacionesCola(){
     cin >> opcion;
     return opcion; 
 }
-void operacionesLista(){
+void operacionesLista(TDALista* WorkingList){
     int opcion = 0;
     
     do{
@@ -74,7 +72,7 @@ void operacionesLista(){
                 cout << "Ingrese la Posición a Insertar el Alumno: ";
                 cin >> Pos;
 
-                if (WorkArrayList->inserta(new Alumno(Nombre, Cuenta), Pos)) {
+                if (WorkingList->inserta(new Alumno(Nombre, Cuenta), Pos)) {
                     cout << "Alumno Insertado con Éxito!" << endl;
                 } else {
                     cout << "Posición Fuera de Rango" << endl;
@@ -83,32 +81,69 @@ void operacionesLista(){
                 break;
             }
             case 2:{
-                WorkArrayList->imprime();
+                if (WorkingList->vacia()){
+                    cout << "La Lista Está Vacía.";
+                } else {
+                    WorkingList->imprime();
+                }
                 break;
             }
 
             case 3:{
-                cout << "Ingrese el Número de Cuenta del Alumno a Encontrar: ";
-                cin >> Cuenta;
-                int poscompare = WorkArrayList->localiza(new Alumno(Nombre, Cuenta));
-                if (poscompare >= 0)
-                    cout << "Alumno Encontrado! Está en la Posición " << poscompare << "." << endl;
-                else
-                    cout << "No Se Ha Encontrado el Alumno." << endl;
+                if (WorkingList->vacia()){
+                    cout << "La Lista Está Vacía. No Se Puede Buscar Alumnos.";
+                } else {
+                    cout << "Ingrese el Número de Cuenta del Alumno a Encontrar: ";
+                    cin >> Cuenta;
+                    int poscompare = WorkingList->localiza(new Alumno(Nombre, Cuenta));
+                    if (poscompare >= 0)
+                        cout << "Alumno Encontrado! Está en la Posición " << poscompare << "." << endl;
+                    else
+                        cout << "No Se Ha Encontrado el Alumno." << endl;
+                }
                 break;
             }
 
             case 4:{
-                int posdelete;
-                cout << "Ingrese la Posición del Alumno a Eliminar: ";
-                cin >> posdelete;
-                Object* AlumnoDelete = WorkArrayList->suprime(posdelete);
-                if (posdelete >= 0)
-                    cout << "Alumno Eliminado!\nSus Datos Eran: " << AlumnoDelete->toString() << "." << endl;
-                else
-                    cout << "No Se Ha Encontrado el Alumno." << endl;
+                if (WorkingList->vacia()){
+                    cout << "La Lista Está Vacía. No Se Puede Eliminar Alumnos.";
+                } else {
+                    int posdelete;
+                    cout << "Ingrese la Posición del Alumno a Eliminar: ";
+                    cin >> posdelete;
+                    Object* AlumnoDelete = WorkingList->suprime(posdelete);
+                    if (posdelete >= 0)
+                        cout << "Alumno Eliminado!\nSus Datos Eran: " << AlumnoDelete->toString() << "." << endl;
+                    else
+                        cout << "No Se Ha Encontrado el Alumno." << endl;
+                }
                 break;
             }
+
+            case 5:{
+                if (WorkingList->vacia())
+                    cout << "La Lista Está Vacía.";
+                else
+                    cout << "Ya Hay Elementos en la Lista.";
+                break;
+            }
+
+            case 6:{
+                if (WorkingList->vacia()){
+                    cout << "La Lista Está Vacía, No Se Puede Buscar Alumnos.";
+                } else {
+                    int posfind;
+                    cout << "Ingrese la Posición del Alumno a Encontrar: ";
+                    cin >> posfind;
+                    Object* AlumnoFind = WorkingList->recupera(posfind+1);
+                    if (posfind >= 0)
+                        cout << "Alumno Encontrado!\nSus Datos Son: " << AlumnoFind->toString() << "." << endl;
+                    else
+                        cout << "No Se Ha Encontrado el Alumno." << endl;
+                }
+                break;
+            }
+
             default:
                 break;
         }
@@ -131,6 +166,7 @@ int main(){
     
     SetConsoleCP(CP_UTF8); SetConsoleOutputCP(CP_UTF8);
     int opcionPrincipal = 0, opcionLista = 0, opcionPila = 0, opcionCola = 0;
+    TDALista* WorkArrayList = new ArrayList();
 
     do{
         cout << "-------------MENU PRINCIPAL-----------------" << endl <<
@@ -151,11 +187,11 @@ int main(){
                     cin >> opcionLista;
                     switch(opcionLista){
                         case 1:{
-                            operacionesLista();
+                            operacionesLista(WorkArrayList);
                             break;
                         }
                         case 2:{
-                            operacionesLista();
+                            operacionesLista(nullptr);
                             break;
                         }
                         case 3:{
