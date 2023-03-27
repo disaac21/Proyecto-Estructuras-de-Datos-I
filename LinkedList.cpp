@@ -31,8 +31,8 @@ bool LinkedList::inserta(Object* dato, int pos){
 			// first->setAnterior(nullptr);
 			if (size == 0)
 			{
-				temp = ultimo;
-				temp = first;
+				ultimo = temp;
+				first = temp;
 			}else{
 				temp->setSiguiente(first);
 				first = temp;
@@ -53,14 +53,15 @@ bool LinkedList::inserta(Object* dato, int pos){
 			temp = first;
 			nuevo->setDato(dato);
 
-			for (size_t i = 0; i < pos-1; i++)
+			for (size_t i = 1; i < pos; i++)
 			{
 				temp = temp->getSiguiente();
-			}
+			}// serlio daniel gadumd          nue:serlio daniel
 
-			nuevo->setSiguiente(temp->getSiguiente());
-			nuevo->setAnterior(temp);
-			temp->setSiguiente(nuevo);
+			nuevo->setAnterior(temp->getAnterior());
+			nuevo->setSiguiente(temp);
+			temp->getAnterior()->setSiguiente(nuevo);
+			temp->setAnterior(nuevo);
 
 			size++;
 			
