@@ -4,12 +4,11 @@
 #include "TDALista.h"
 #include "Node.h"
 
-class LinkedList : public TDALista
-{
+class LinkedList : public TDALista {
 
 	private:
-		Node* first;
-		Node* ultimo;
+		Node* PrimerNodo;
+		Node* UltimoNodo;
 		int size;
 
 	public:
