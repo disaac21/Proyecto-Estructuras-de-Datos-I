@@ -50,18 +50,19 @@ bool LinkedList::inserta(Object* dato, int pos){
 			// nuevo->setAnterior(temp);
 			size++;
 		} else { //Inserción en el Medio de la Lista
-			temp = first;
 			nuevo->setDato(dato);
+
+			temp = first;
 
 			for (size_t i = 1; i < pos; i++)
 			{
 				temp = temp->getSiguiente();
-			}// serlio daniel gadumd          nue:serlio daniel
+			}// serlio daniel gadumd          
 
 			nuevo->setAnterior(temp->getAnterior());
-			nuevo->setSiguiente(temp);
-			temp->getAnterior()->setSiguiente(nuevo);
+			nuevo->setSiguiente(temp); //nue:serlio daniel
 			temp->setAnterior(nuevo);
+			nuevo->getAnterior()->setSiguiente(nuevo);
 
 			size++;
 			
