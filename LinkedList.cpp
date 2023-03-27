@@ -20,74 +20,41 @@ LinkedList::~LinkedList() {
 bool LinkedList::inserta(Object* dato, int pos){
 
 	//Dentro de Rango
-    if (pos >= 1 && pos <= size+1) {
-		Node* temp = new Node(); //Nodos de Ayuda
-		Node* nuevo = new Node();
-
-		//first->getDato()->equals(nullptr) &&  (inside if condition)
-		if (pos == 1) { // Primera Inserción
-			temp = new Node();
-			temp->setDato(dato);
-			// first->setAnterior(nullptr);
-			if (size == 0)
-			{
-				ultimo = temp;
-				first = temp;
-			}else{
-				temp->setSiguiente(first);
-				first = temp;
+	if (pos >= 1 && pos <= size+1) {
+		if (!first && pos == 1) { //Primera Inserción
+			first = new Node();
+			first->setDato(dato);
+		} else {
+			Node* aux = new Node(); aux = first;
+			Node* nuevo = new Node(); nuevo->setDato(dato);
+			if (pos == size+1) { //Última Posición
+				while (aux->getSiguiente()){
+					aux = aux->getSiguiente();
+				}
+				aux->setSiguiente(nuevo);
+				nuevo->setAnterior(aux);
+			} else { //Último Caso: Inserción en el Medio de la Lista
+				int i = 0;
+				while (aux) { //Mientras Exista == no sea null, no llegue al final
+					i++;
+					if (i == pos) {
+						nuevo->setSiguiente(aux);
+						if (i == 1) { //Inserción en 1 con Más Nodos
+							nuevo->setAnterior(NULL);
+							first = nuevo;
+						}
+						if (aux->getAnterior()){ //Corrimiento
+							aux->getAnterior()->setSiguiente(nuevo);
+						}
+						nuevo->setAnterior(aux->getAnterior());
+						aux->setAnterior(nuevo);
+						break;
+					}
+					aux = aux->getSiguiente(); //Seguir con el Ciclo
+				}
 			}
-			
-			size++;
-		} else if (pos == size+1) { //Última Inserción
-			// temp = first;
-			nuevo->setDato(dato);
-			ultimo->setSiguiente(nuevo);
-			ultimo = nuevo;
-			// while (temp->getSiguiente())
-			// 	temp = temp->getSiguiente();
-			// temp->setSiguiente(nuevo);
-			// nuevo->setAnterior(temp);
-			size++;
-		} else { //Inserción en el Medio de la Lista
-			nuevo->setDato(dato);
-
-			temp = first;
-
-			for (size_t i = 1; i < pos; i++)
-			{
-				temp = temp->getSiguiente();
-			}// serlio daniel gadumd          
-
-			nuevo->setAnterior(temp->getAnterior());
-			nuevo->setSiguiente(temp); //nue:serlio daniel
-			temp->setAnterior(nuevo);
-			nuevo->getAnterior()->setSiguiente(nuevo);
-
-			size++;
-			
-
-			// int i = 0;
-			// while (temp) {
-			// 	i++;
-			// 	if (i == pos) {
-			// 		nuevo->setSiguiente(temp);
-			// 		if (i == 1) { //Exchange el Primero
-			// 			nuevo->setAnterior(nullptr);
-			// 			first = nuevo;
-			// 		} else {
-			// 			temp->getAnterior()->setSiguiente(nuevo);					
-			// 			nuevo->setAnterior(temp->getAnterior());
-			// 			temp->setAnterior(nuevo);
-			// 			nuevo->setSiguiente(temp);
-			// 		}
-			// 		break;
-			// 	}
-			// 	temp = temp->getSiguiente(); //Después de Asignar y Correr
-			// }
-			// size++;
 		}
-
+		size++;
 	}
 	return true;
 }
