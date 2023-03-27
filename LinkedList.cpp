@@ -25,41 +25,65 @@ bool LinkedList::inserta(Object* dato, int pos){
 		Node* nuevo = new Node();
 
 		//first->getDato()->equals(nullptr) &&  (inside if condition)
-		if (pos == 1 && size == 0) { // Primera Inserción
-			first = new Node();
-			first->setDato(dato);
-			first->setAnterior(nullptr);
+		if (pos == 1) { // Primera Inserción
+			temp = new Node();
+			temp->setDato(dato);
+			// first->setAnterior(nullptr);
+			if (size == 0)
+			{
+				temp = ultimo;
+				temp = first;
+			}else{
+				temp->setSiguiente(first);
+				first = temp;
+			}
+			
 			size++;
 		} else if (pos == size+1) { //Última Inserción
-			temp = first;
+			// temp = first;
 			nuevo->setDato(dato);
-			while (temp->getSiguiente())
-				temp = temp->getSiguiente();
-			temp->setSiguiente(nuevo);
-			nuevo->setAnterior(temp);
+			ultimo->setSiguiente(nuevo);
+			ultimo = nuevo;
+			// while (temp->getSiguiente())
+			// 	temp = temp->getSiguiente();
+			// temp->setSiguiente(nuevo);
+			// nuevo->setAnterior(temp);
 			size++;
 		} else { //Inserción en el Medio de la Lista
 			temp = first;
 			nuevo->setDato(dato);
-			int i = 0;
-			while (temp) {
-				i++;
-				if (i == pos) {
-					nuevo->setSiguiente(temp);
-					if (i == 1) { //Exchange el Primero
-						nuevo->setAnterior(nullptr);
-						first = nuevo;
-					} else {
-						temp->getAnterior()->setSiguiente(nuevo);					
-						nuevo->setAnterior(temp->getAnterior());
-						temp->setAnterior(nuevo);
-						nuevo->setSiguiente(temp);
-					}
-					break;
-				}
-				temp = temp->getSiguiente(); //Después de Asignar y Correr
+
+			for (size_t i = 0; i < pos-1; i++)
+			{
+				temp = temp->getSiguiente();
 			}
+
+			nuevo->setSiguiente(temp->getSiguiente());
+			nuevo->setAnterior(temp);
+			temp->setSiguiente(nuevo);
+
 			size++;
+			
+
+			// int i = 0;
+			// while (temp) {
+			// 	i++;
+			// 	if (i == pos) {
+			// 		nuevo->setSiguiente(temp);
+			// 		if (i == 1) { //Exchange el Primero
+			// 			nuevo->setAnterior(nullptr);
+			// 			first = nuevo;
+			// 		} else {
+			// 			temp->getAnterior()->setSiguiente(nuevo);					
+			// 			nuevo->setAnterior(temp->getAnterior());
+			// 			temp->setAnterior(nuevo);
+			// 			nuevo->setSiguiente(temp);
+			// 		}
+			// 		break;
+			// 	}
+			// 	temp = temp->getSiguiente(); //Después de Asignar y Correr
+			// }
+			// size++;
 		}
 
 	}
