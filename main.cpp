@@ -232,22 +232,22 @@ void operacionesLista(TDALista* WorkingList){ //Operaciones de Listas
 void operacionesPila(TDAPila* stack){ //Operaciones de Pilas
     int opcion = 0;
     do{
-        opcion = menuOperacionesPila();
-        char caracter;
+        opcion = menuOperacionesPila();//se llama el Menu de Operaciones para ingresar la opcion que desean
+        char caracter;//variable donde se guardaran los simbolos que desean los usuarios y luego se creara el objeto.
 
         switch(opcion){
             case 1:{
                 int repetirInserta = 1;
-                while(repetirInserta == 1){
+                while(repetirInserta == 1){//metodo push
                     cout << "Ingrese un simbolo: ";
                     cin >> caracter;
-                    stack->push(new Simbolo(caracter));
+                    stack->push(new Simbolo(caracter));//se agrega el simbolo a la arraystack
                     cout << "Simbolo empujado correctamente" << endl;
                     repetirInserta = repetirCiclo();
                 }
                 break;
             }
-            case 2:{
+            case 2:{//metodo pop
                 if(stack->vacia()){
                     cout << "La pila esta vacia" << endl;
                 }
@@ -256,28 +256,28 @@ void operacionesPila(TDAPila* stack){ //Operaciones de Pilas
                 }
                 break;
             }
-            case 3:{
+            case 3:{//metodo peek
                 if(!(stack->vacia()))
                     cout << "El elemento al tope de la pila es: " << stack->peek()->toString() << endl;
                 else
-                cout << "La Pila esta vacia" << endl;
+                    cout << "La Pila esta vacia" << endl;
                 break;
             }
-            case 4:{
+            case 4:{//metodo vacia
                 if(stack->vacia())
                     cout << "La Pila esta vacia" << endl;
                 else
                     cout << "La Pila no esta vacia" << endl;
                 break;
             }
-            case 5:{
+            case 5:{//metodo imprimir pila
                 if(stack->vacia())
                     cout << "La Pila no contiene elementos" << endl;
                 else
                     stack->imprime();
                 break;
             }
-            case 6:{
+            case 6:{//metodo anula
                 if(stack->vacia()){
                     cout << "La Pila no contiene elementos" << endl;
 
@@ -350,12 +350,12 @@ int main(){ //Main
     
     SetConsoleCP(CP_UTF8); SetConsoleOutputCP(CP_UTF8);
     int opcionPrincipal = 0, opcionLista = 0, opcionPila = 0, opcionCola = 0;
-    TDALista* WorkArrayList = new ArrayList();
-    TDALista* WorkLinkedList = new LinkedList();
-    TDAPila* workArrayStack = new ArrayStack();
-    TDAPila* workLinkedStack = new ArrayStack();
-    TDACola* ColaArreglo = new ArrayQueue();
-    TDACola* ColaNodos = new LinkedQueue();
+    ArrayList* WorkArrayList = new ArrayList();
+    LinkedList* WorkLinkedList = new LinkedList();
+    ArrayStack* workArrayStack = new ArrayStack();
+    LinkedStack* workLinkedStack = new LinkedStack();
+    ArrayQueue* ColaArreglo = new ArrayQueue();
+    LinkedQueue* ColaNodos = new LinkedQueue();
 
     do{
         cout << " ---------- MENU PRINCIPAL ---------- " << endl <<
@@ -377,11 +377,11 @@ int main(){ //Main
                     cin >> opcionLista;
                     switch(opcionLista){
                         case 1:{
-                            operacionesLista(WorkArrayList);
+                            operacionesLista(WorkArrayList);//se llama el metodo donde se desplagaran las operaciones de la Lista
                             break;
                         }
                         case 2:{
-                            operacionesLista(WorkLinkedList);
+                            operacionesLista(WorkLinkedList);//se llama el metodo donde se desplagaran las operaciones de la Lista
                             break;
                         }
                         case 3:{
@@ -407,11 +407,11 @@ int main(){ //Main
                     cin >> opcionPila;
                     switch(opcionPila){
                         case 1:{
-                            operacionesPila(workArrayStack);
+                            operacionesPila(workArrayStack);//se llama el metodo donde se desplagaran las operaciones de la Pila
                             break;
                         }
                         case 2:{
-                            operacionesPila(workLinkedStack);
+                            operacionesPila(workLinkedStack);//se llama el metodo donde se desplagaran las operaciones de la Pila
                             break;
                         }
                         case 3:{
@@ -437,11 +437,11 @@ int main(){ //Main
                     cin >> opcionCola;
                     switch(opcionCola){
                         case 1:{
-                            operacionesCola(ColaArreglo);
+                            operacionesCola(ColaArreglo);//se llama el metodo donde se desplagaran las operaciones de la Cola
                             break;
                         }
                         case 2:{
-                            operacionesCola(ColaNodos);
+                            operacionesCola(ColaNodos);//se llama el metodo donde se desplagaran las operaciones de la Cola
                             break;
                         }
                         case 3:{
@@ -463,6 +463,12 @@ int main(){ //Main
             }
         }
     } while (opcionPrincipal!=4);
-
+    //destructores
+    WorkArrayList->~ArrayList();
+    WorkLinkedList->~LinkedList();
+    workArrayStack->~ArrayStack();
+    workLinkedStack->~LinkedStack();
+    ColaArreglo->~ArrayQueue();
+    ColaNodos->~LinkedQueue();
     getchar();
 };
