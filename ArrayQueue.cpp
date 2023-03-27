@@ -4,24 +4,25 @@ ArrayQueue::ArrayQueue()
 {
     size = 0;
     capacidad = 10000;
-    array = new Object *[capacidad];
+    cola = new Object *[capacidad];
 }
 
 ArrayQueue::~ArrayQueue()
 {
+    this->anula(); // hace cada uno de los espacios null
+    delete[] cola; // elimina el arreglo
 }
 
 bool ArrayQueue::encolar(Object *objeto)
 {
-    array[size] = objeto;
-    size++;
+    cola[size] = objeto;  // coloca el puntero del objeto en en la posicion size
+    size++; // se le agrega espacio al arreglo para una nueva insercion
 }
 
 bool ArrayQueue::desencolar()
 {
-    // array[0] = nullptr;
 
-    if (this->IsVacio())
+    if (this->IsVacio()) //usa el metodo Is vacio, el cual retorna true si la cola esta vacia
     {
         cout << endl
              << "Cola vacia" << endl;
@@ -29,21 +30,21 @@ bool ArrayQueue::desencolar()
     else
     {
         cout << endl;
-        cout << array[0]->toString() << endl;
+        cout << cola[0]->toString() << endl; // imprime el primer dato que se ingreso a la cola
 
         for (size_t i = 0; i < size; i++)
         {
-            array[i] = array[i + 1];
+            cola[i] = cola[i + 1]; // hace un corrimiento para cada espacio de la cola
         }
 
-        array[size] = nullptr;
-        size--;
+        cola[size] = nullptr;//el ultimo espacio de la cola lo liberamos
+        size--;// le restamos al tamaño de la cola
     }
 }
 
 void ArrayQueue::verfrente()
 {
-    if (this->IsVacio())
+    if (this->IsVacio()) //usa el metodo Is vacio, el cual retorna true si la cola esta vacia
     {
         cout << endl
              << "Cola vacia" << endl;
@@ -51,7 +52,7 @@ void ArrayQueue::verfrente()
     else
     {
         cout << endl
-             << array[0]->toString() << endl;
+             << cola[0]->toString() << endl;
     }
 }
 
@@ -80,7 +81,7 @@ void ArrayQueue::imprime()
         cout << endl;
         for (size_t i = 0; i < size; i++)
         {
-            cout << i + 1 << ". " << array[i]->toString() << endl;
+            cout << i + 1 << ". " << cola[i]->toString() << endl;
         }
     }
 }
@@ -89,7 +90,7 @@ void ArrayQueue::anula()
 {
     for (size_t i = 0; i < size; i++)
     {
-        array[i] = nullptr;
+        cola[i] = nullptr;
     }
 
     size = 0;

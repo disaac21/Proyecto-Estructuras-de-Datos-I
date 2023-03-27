@@ -7,7 +7,7 @@ using namespace std;
 
 class ArrayQueue : public TDACola{
 private:
-    Object** array;
+    Object** cola;
     int capacidad;
     int size;
 public:
