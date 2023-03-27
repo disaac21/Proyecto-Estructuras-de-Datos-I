@@ -66,7 +66,7 @@ Object* ArrayList::recupera(int pos) { //Encuentra el Objeto de una Posición Da
     return nullptr;
 }
 
-Object* ArrayList::suprime(int pos) { //Borra el Objeto de una Posición Dada
+Object* ArrayList::suprime(int pos) { //Borra y Retorna el Objeto de una Posición Dada
 
     Object* ObjetoDelete; //Objeto Borrado (Retornar)
     if (pos >= 1 && pos <= size) {
@@ -81,23 +81,23 @@ Object* ArrayList::suprime(int pos) { //Borra el Objeto de una Posición Dada
         array = temp; //Asignacion a Lista Original
         size--;
     }
-    return ObjetoDelete;
+    return ObjetoDelete; //Retorna Objeto Eliminado para Mostrar su Información
 }
 
 void ArrayList::anula() { //Borra Todos los Elementos de la Lista
     if (size == 0)
         return;
-    for (int i = 0; i < this->getSize(); i++)
-        delete this->array[i];
+    for (int i = 0; i < this->getSize(); i++) //Itera a lo Largo de la Lista
+        delete this->array[i]; //Elimina el Objeto
     
-    this->array = new Object*[capacidad];
+    this->array = new Object*[capacidad]; //Reestablece la Lista
     this->size = 0;
 }
 
 Object* ArrayList::primero() { //Devuelve el Primer Objeto de la Lista
     if(!vacia()){
-        Object* x = this->recupera(0);
-        return x;
+        Object* Send = this->recupera(0); //Captura el Primer Objeto en la Lista
+        return Send;
     } else {
         return nullptr;
     }
@@ -105,12 +105,12 @@ Object* ArrayList::primero() { //Devuelve el Primer Objeto de la Lista
 
 Object* ArrayList::anterior(int pos) { //Devuelve el Objeto Anterior al Objeto de la Posición Indicada
     if(!this->vacia()){
-        if(pos == 1) {
-            return nullptr;
+        if(pos == 1) { //Primero No Tiene Anterior
+            return nullptr; 
         } else if (pos < 1 || pos > this->getSize()){
             return nullptr;
         } else {
-            return this->recupera(pos-1);
+            return this->recupera(pos-1); 
         }
     } else {
         return nullptr;
@@ -118,7 +118,7 @@ Object* ArrayList::anterior(int pos) { //Devuelve el Objeto Anterior al Objeto d
 }
 
 Object* ArrayList::siguiente(int pos) { //Devuelve el Objeto Siguiente al Objeto de la Posición Indicada
-    if(pos >= 1 && pos <= this->getSize()) {
+    if(pos >= 1 && pos <= this->getSize()) { //Último No Tiene Siguiente
         return this->recupera(pos+1);
     } else {
         return nullptr;
@@ -132,7 +132,7 @@ bool ArrayList::vacia() { //Revisa si la Lista Está Vacía
 
 void ArrayList::imprime() { //Imprime todos los Elementos de la Lista
     for (int i = 0; i < this->getSize(); i++) {
-        cout << i+1 << ") " << this->array[i]->toString() << endl;
+        cout << i+1 << ") " << this->array[i]->toString() << endl; //Output con Formato
     }
 }
 
