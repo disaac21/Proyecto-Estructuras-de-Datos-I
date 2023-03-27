@@ -106,25 +106,25 @@ Object* LinkedList::suprime(int pos){
 
 	Object* ObjetoDelete; //Objeto Borrado (Retornar)
 	if (pos >= 1 && pos <= size) {
-		Node* temp = first;
+		Node* temp = nullptr;
 		int i = 0;
 		while (temp) {
 			i++;
 			if (i == pos) {
-				if (pos == 1 && size == 1){
+				if (pos == 1 && size == 1){ //Primer Nodo
 					temp = first;
-					anula();
-					return temp->getDato();
-				} else if (i == size) {
-					temp = ultimo;
-					ultimo = nullptr;
-					ultimo = temp->getAnterior();
+					first = nullptr;
 					size--;
 					return temp->getDato();
-				} else {
-					//if (temp->getAnterior())
+				} else if (i == size) { //Ultimo Nodo
+					temp = ultimo;
+					ultimo = ultimo->getAnterior();
+					size--;
+					return temp->getDato();
+				} else { //Nodo en el Centro
+				
 						temp->getAnterior()->setSiguiente(temp->getSiguiente());
-					//if (temp->getSiguiente())
+				
 						temp->getSiguiente()->setAnterior(temp->getAnterior());
 						size--;
 						return temp->getDato();
