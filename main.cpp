@@ -1,87 +1,94 @@
 #include <iostream>
 #include <string>
 #include <windows.h>
+
 //Clases que se incluyen
 #include "TDALista.h"
 #include "ArrayList.h"
 #include "LinkedList.h"
+
 #include "TDAPila.h"
 #include "ArrayStack.h"
 #include "LinkedStack.h"
-#include "Alumno.h"
-#include "Simbolo.h"
+
 #include "TDACola.h"
 #include "ArrayQueue.h"
 #include "LinkedQueue.h"
 
+#include "Alumno.h"
+#include "Simbolo.h"
+
 using namespace std;
 
-int repetirCiclo(){
+int repetirCiclo(){ //Ciclo "Seguir Ingresando" para Operación Insertar
     int opcionRepetirCiclo = 0;
-    cout << "1. Seguir Ingresando" << endl <<
+    cout << endl << "1. Seguir Ingresando" << endl <<
     "2. Volver al menu de Operaciones" << endl
-    << "Escoga: ";
+    << "Ingrese una Opción: ";
     cin >> opcionRepetirCiclo;
     return opcionRepetirCiclo;
 }
-int menuOperacionesLista(){
+
+int menuOperacionesLista(){ //Menu de Listas
     int opcion = 0;
-    cout << endl << "-------------------------"<< endl <<
-    "1. Insertar Elemento " << endl <<
-    "2. Imprimir Elemento " << endl <<
-    "3. Buscar Elemento " << endl <<
-    "4. Borrar Elemento " << endl <<
-    "5. Vacia " << endl <<
+    cout << endl << " ---------- Operaciones de Listas ---------- " << endl <<
+    "1. Insertar Elemento" << endl <<
+    "2. Imprimir Elementos" << endl <<
+    "3. Buscar Elemento" << endl <<
+    "4. Borrar Elemento" << endl <<
+    "5. Ver Si Está Vacía" << endl <<
     "6. Obtener Elemento por Posicion" << endl <<
-    "7. Obtener Siguiente " << endl <<
-    "8. Obtener Anterior " << endl <<
-    "9. Anula " << endl <<
-    "10. Regresar al Menu Anterior " << endl <<
+    "7. Obtener Siguiente" << endl <<
+    "8. Obtener Anterior" << endl <<
+    "9. Borrar Todos Los Elementos" << endl <<
+    "10. Regresar al Menu Anterior" << endl <<
     "Ingrese una opcion: ";
     cin >> opcion;
     return opcion;
 }
-int menuOperacionesPila(){
+int menuOperacionesPila(){ //Menu de Pilas
     int opcion = 0;
-    cout << endl << "-------------------------"<< endl <<
-    "1. Empujar (Push) " << endl <<
-    "2. Sacar (pop) " << endl <<
-    "3. Ver Tope (Top) " << endl <<
-    "4. Vacia " << endl <<
-    "5. Imprimir Elementos " << endl <<
-    "6. Borrar todos los elementos " << endl <<
-    "7. Regresar al Menu Anterior " << endl <<
+    cout << endl << " ---------- Operaciones de Pilas ---------- " << endl <<
+    "1. Empujar (Push)" << endl <<
+    "2. Sacar (Pop)" << endl <<
+    "3. Ver Tope (Top)" << endl <<
+    "4. Vacia" << endl <<
+    "5. Imprimir Elementos" << endl <<
+    "6. Borrar todos los elementos" << endl <<
+    "7. Regresar al Menu Anterior" << endl <<
     "Ingrese una opcion: ";
     cin >> opcion;
     return opcion; 
 }
-int menuOperacionesCola(){
+int menuOperacionesCola(){ //Menu de Colas
     int opcion = 0;
-    cout << endl << "-------------------------"<< endl <<
-    "1. Encolar (Queue) " << endl <<
-    "2. Desencolar (Dequeue) " << endl <<
-    "3. Ver Frente (peek) " << endl <<
-    "4. Vacia " << endl <<
-    "5. Imprimir Elementos " << endl <<
-    "6. Borrar los Elementos " << endl <<
-    "7. Regresar al Menu Anterior " << endl <<
+    cout << endl << " ---------- Operaciones de Colas ---------- " << endl <<
+    "1. Encolar (Queue)" << endl <<
+    "2. Desencolar (Dequeue)" << endl <<
+    "3. Ver Frente (Peek)" << endl <<
+    "4. Vacia" << endl <<
+    "5. Imprimir Elementos" << endl <<
+    "6. Borrar los Elementos" << endl <<
+    "7. Regresar al Menu Anterior" << endl <<
     "Ingrese una opcion: ";
     cin >> opcion;
     return opcion; 
 }
-void operacionesLista(TDALista* WorkingList){
+
+void operacionesLista(TDALista* WorkingList){ //Operaciones de Listas
     int opcion = 0;
     
     do{
         opcion = menuOperacionesLista();
-        string Nombre = ""; int Cuenta;
+        string Nombre = ""; int Cuenta; //Atributos Generales
 
         switch (opcion) {
-            case 1: {
+
+            case 1: { //Insertar Elemento (Inserta)
                 int repetirInserta = 1;
                 while(repetirInserta == 1){
                     int Pos;
-                    cin.ignore();
+                    cin.ignore(); //Solicitar Datos
                     cout << "Ingrese el Nombre del Alumno: ";
                     getline(cin, Nombre);
                     cout << "Ingrese el Número de Cuenta del Alumno: ";
@@ -89,7 +96,7 @@ void operacionesLista(TDALista* WorkingList){
                     cout << "Ingrese la Posición a Insertar el Alumno: ";
                     cin >> Pos;
 
-                    if (WorkingList->inserta(new Alumno(Nombre, Cuenta), Pos) && Pos <= WorkingList->getSize()) {
+                    if (WorkingList->inserta(new Alumno(Nombre, Cuenta), Pos) && Pos <= WorkingList->getSize()) { //Crea Objeto e Inserta en Lista
                         cout << "Alumno Insertado con Éxito!" << endl;
                     } else {
                         cout << "Posición Fuera de Rango" << endl;
@@ -99,24 +106,25 @@ void operacionesLista(TDALista* WorkingList){
                 break;
             }
 
-            case 2:{
+            case 2:{ //Imprimir Elementos (Imprime)
                 if (WorkingList->vacia()){
-                    cout << "La Lista Está Vacía.";
+                    cout << "La Lista Está Vacía." << endl;
                 } else {
+                    cout << endl << " ---------- Lista ---------- " << endl;
                     WorkingList->imprime();
                 }
                 break;
             }
 
-            case 3:{
+            case 3:{ //Buscar Elemento (localiza)
                 if (WorkingList->vacia()){
-                    cout << "La Lista Está Vacía. No Se Puede Buscar Alumnos.";
+                    cout << "La Lista Está Vacía. No Se Puede Buscar Alumnos." << endl;
                 } else {
-                    cout << "Ingrese el Número de Cuenta del Alumno a Encontrar: ";
+                    cout << "Ingrese el Número de Cuenta del Alumno a Encontrar: "; //Método de Busqueda: Número de Cuenta
                     cin >> Cuenta;
-                    int poscompare = WorkingList->localiza(new Alumno(Nombre, Cuenta));
+                    int poscompare = WorkingList->localiza(new Alumno(Nombre, Cuenta)); //Recibe Posición del Objeto
                     if (poscompare > 0 && poscompare <= WorkingList->getSize()){
-                        cout << "Alumno Encontrado! " << WorkingList->recupera(poscompare)->toString() << " Está en la Posición " << poscompare << "." << endl;
+                        cout << "Alumno Encontrado! " << WorkingList->recupera(poscompare)->toString() << " Está en la Posición " << poscompare << "." << endl; //Muestra Datos de Objeto
                     } else {
                         cout << "No Se Ha Encontrado el Alumno." << endl;
                     }
@@ -124,102 +132,104 @@ void operacionesLista(TDALista* WorkingList){
                 break;
             }
 
-            case 4:{
+            case 4:{ //Borrar Elemento (Suprime)
                 if (WorkingList->vacia()){
-                    cout << "La Lista Está Vacía. No Se Puede Eliminar Alumnos.";
+                    cout << "La Lista Está Vacía. No Se Puede Eliminar Alumnos." << endl;
                 } else {
                     int posdelete;
-                    cout << "Ingrese la Posición del Alumno a Eliminar: ";
+                    cout << "Ingrese la Posición del Alumno a Eliminar: "; //Solicita Posición del Objeto a Eliminar
                     cin >> posdelete;
-                    Object* AlumnoDelete = WorkingList->suprime(posdelete);
+                    Object* AlumnoDelete = WorkingList->suprime(posdelete); //Crea Objeto (Placeholder)
                     if (posdelete > 0)
-                        cout << "Alumno Eliminado!\nSus Datos Eran: " << AlumnoDelete->toString() << "." << endl;
+                        cout << "Alumno Eliminado!\nSus Datos Eran: " << AlumnoDelete->toString() << "." << endl; //Muestra Datos del Objeto Eliminado
                     else
                         cout << "No Se Ha Encontrado el Alumno." << endl;
                 }
                 break;
             }
 
-            case 5:{
+            case 5:{ //Ver Si Está Vacía (Vacia)
                 if (WorkingList->vacia()) {
-                    cout << "La Lista Está Vacía.";
+                    cout << "La Lista Está Vacía." << endl;
                 } else {
                     if (WorkingList->getSize() == 1)
-                        cout << "Hay " << WorkingList->getSize() << " Elemento en la Lista.";
+                        cout << "Hay " << WorkingList->getSize() << " Elemento en la Lista." << endl;
                     else
-                        cout << "Hay " << WorkingList->getSize() << " Elementos en la Lista.";
+                        cout << "Hay " << WorkingList->getSize() << " Elementos en la Lista." << endl;
                 }
                 break;
             }
 
-            case 6:{
+            case 6:{ //Obtener Elemento Por Posición (Recupera)
                 if (WorkingList->vacia()){
-                    cout << "La Lista Está Vacía, No Se Puede Buscar Alumnos.";
+                    cout << "La Lista Está Vacía, No Se Puede Buscar Alumnos." << endl;
                 } else {
                     int posfind;
-                    cout << "Ingrese la Posición del Alumno a Encontrar: ";
+                    cout << "Ingrese la Posición del Alumno a Encontrar: "; //Pide la Posición del Objeto a Buscar
                     cin >> posfind;
-                    Object* AlumnoFind = WorkingList->recupera(posfind);
+                    Object* AlumnoFind = WorkingList->recupera(posfind); //Obtiene el Objeto en la Posición
                     if (posfind > 0 && posfind <= WorkingList->getSize())
-                        cout << "Alumno Encontrado!\nSus Datos Son: " << AlumnoFind->toString() << "." << endl;
+                        cout << "Alumno Encontrado!\nSus Datos Son: " << AlumnoFind->toString() << "." << endl; //Muestra Datos del Objeto Encontrado
                     else
                         cout << "No Se Ha Encontrado el Alumno." << endl;
                 }
                 break;
             }
 
-            case 7:{
+            case 7:{ //Obtener Siguiente (Siguiente)
                 if (WorkingList->vacia()){
-                    cout << "La Lista Está Vacía.";
+                    cout << "La Lista Está Vacía." << endl;
                 } else {
                     int posfindnext;
-                    cout << "Ingrese la Posición del Alumno a Encontrar su Siguiente: ";
+                    cout << "Ingrese la Posición del Alumno a Encontrar su Siguiente: "; //Pide la Posición del Objeto para Obtener el Próximo
                     cin >> posfindnext;
-                    Object* AlumnoFindNext = WorkingList->recupera(posfindnext+1);
+                    Object* AlumnoFindNext = WorkingList->recupera(posfindnext+1); //Crea el Objeto con el Siguiente de la Posición
                     if (posfindnext > 0 && posfindnext <= WorkingList->getSize()-1)
-                        cout << "Alumno Encontrado!\nSus Datos Son: " << AlumnoFindNext->toString() << "." << endl;
+                        cout << "Alumno Encontrado!\nSus Datos Son: " << AlumnoFindNext->toString() << "." << endl; //Muestra Datos del Objeto
                     else if (posfindnext == WorkingList->getSize())
-                        cout << "Este Alumno es el Último de la Lista." << endl;
+                        cout << "Este Alumno es el Último de la Lista." << endl; //Valida Sí Está al Borde Final de la Lista
                     else
-                        cout << "Posición Fuera de Rango." << endl;
+                        cout << "Posición Fuera de Rango." << endl; //Valida Sí La Posición es Parte de la Lista
                 }
                 break;
             }
 
-            case 8:{
+            case 8:{ //Obtener Anterior (Anterior)
                 if (WorkingList->vacia()){
-                    cout << "La Lista Está Vacía.";
+                    cout << "La Lista Está Vacía." << endl;
                 } else {
                     int posfindprev;
-                    cout << "Ingrese la Posición del Alumno a Encontrar su Anterior: ";
+                    cout << "Ingrese la Posición del Alumno a Encontrar su Anterior: "; //Pide la Posición del Objeto para Obtener el Previo
                     cin >> posfindprev;
-                    Object* AlumnoFindPrev = WorkingList->recupera(posfindprev-1);
+                    Object* AlumnoFindPrev = WorkingList->recupera(posfindprev-1); //Crea el Objeto con el Anterior de la Posición
                     if (posfindprev > 1 && posfindprev <= WorkingList->getSize())
-                        cout << "Alumno Encontrado!\nSus Datos Son: " << AlumnoFindPrev->toString() << "." << endl;
+                        cout << "Alumno Encontrado!\nSus Datos Son: " << AlumnoFindPrev->toString() << "." << endl; //Muestra Datos del Objeto
                     else if (posfindprev == 1)
-                        cout << "Este Alumno es el Primero de la Lista." << endl;
+                        cout << "Este Alumno es el Primero de la Lista." << endl; //Valida Sí Está al Comienzo de la Lista
                     else
-                        cout << "Posición Fuera de Rango." << endl;
+                        cout << "Posición Fuera de Rango." << endl; //Valida Sí la Posición es Parte de la Lista
                 }
                 break;
             }
 
-            case 9:{
+            case 9:{ //Borrar Todos Los Elementos (Anula)
                 if (WorkingList->vacia()) {
-                    cout << "La Lista Está Vacía.";
+                    cout << "La Lista Está Vacía." << endl;
                 } else {
-                    WorkingList->anula();
-                    cout << "Lista Vaciada.";
+                    WorkingList->anula(); 
+                    cout << "Lista Vaciada." << endl;
                 }
                 break;
             }
 
-            default:
+            default:{
+                cout << "Ingrese una Opción Válida." << endl;
                 break;
+            }
         }
     } while(opcion != 10);
 }
-void operacionesPila(TDAPila* stack){
+void operacionesPila(TDAPila* stack){ //Operaciones de Pilas
     int opcion = 0;
     do{
         opcion = menuOperacionesPila();
@@ -285,7 +295,7 @@ void operacionesPila(TDAPila* stack){
         }
     }while(opcion != 7);
 }
-void operacionesCola(TDACola* Cola){
+void operacionesCola(TDACola* Cola){ //Operaciones de Colas
     int opcion = 0;
     do{
         opcion = menuOperacionesCola();
@@ -336,7 +346,7 @@ void operacionesCola(TDACola* Cola){
     }while(opcion != 7);
 }
 
-int main(){
+int main(){ //Main
     
     SetConsoleCP(CP_UTF8); SetConsoleOutputCP(CP_UTF8);
     int opcionPrincipal = 0, opcionLista = 0, opcionPila = 0, opcionCola = 0;
@@ -346,22 +356,24 @@ int main(){
     TDAPila* workLinkedStack = new ArrayStack();
     TDACola* ColaArreglo = new ArrayQueue();
     TDACola* ColaNodos = new LinkedQueue();
+
     do{
-        cout << "-------------MENU PRINCIPAL-----------------" << endl <<
+        cout << " ---------- MENU PRINCIPAL ---------- " << endl <<
         "1. Trabajar con Lista " <<  endl <<
         "2. Trabajar con Pilas " << endl <<
         "3. Trabajar con Colas " << endl <<
         "4. Salir " << endl <<
-        "Ingrese una opcion: ";
+        "Ingrese una Opción: ";
         cin >> opcionPrincipal;
+
         switch(opcionPrincipal){
             case 1:{
                 while(opcionLista!=3){
-                    cout << endl << "*********Menu Tipo de Lista*********" << endl <<
+                    cout << endl << " ---------- Menu Tipo de Lista ---------- " << endl <<
                     "1. Trabajar con ArrayList " << endl <<
                     "2. Trabajar con LinkedList " << endl <<
                     "3. Regresar al Menu Principal " << endl <<
-                    "Ingrese una opcion: ";
+                    "Ingrese una Opción: ";
                     cin >> opcionLista;
                     switch(opcionLista){
                         case 1:{
@@ -376,17 +388,22 @@ int main(){
                             cout << endl;
                             break;
                         }
+                        default:{
+                            cout << "Ingrese una Opción Válida.\n";
+                            break;
+                        }
                     }
                 }
                 break;
             }
+
             case 2:{
                 while(opcionPila != 3){
-                    cout << endl << "+++++++++Menu Tipo de Pila+++++++++" << endl <<
+                    cout << endl << " ---------- Menu Tipo de Pila ---------- " << endl <<
                     "1. Trabajar con ArrayStack " << endl <<
                     "2. Trabajar con LinkedStack " << endl <<
                     "3. Regresar al Menu Principal " << endl <<
-                    "Ingrese una opcion: ";
+                    "Ingrese una Opción: ";
                     cin >> opcionPila;
                     switch(opcionPila){
                         case 1:{
@@ -401,17 +418,22 @@ int main(){
                             cout << endl;
                             break;
                         }
+                        default:{
+                            cout << "Ingrese una Opción Válida.\n";
+                            break;
+                        }
                     }
                 }
                 break;
             }
+
             case 3:{
                 while(opcionCola != 3){
-                    cout << endl << "<<<<<<<<< Menu Tipo de Cola >>>>>>>>>" << endl <<
+                    cout << endl << " ---------- Menu Tipo de Cola ---------- " << endl <<
                     "1. Trabajar con ArrayQueue " << endl <<
                     "2. Trabajar con LinkedQueue " << endl <<
                     "3. Regresar al Menu Principal " << endl <<
-                    "Ingrese una opcion: ";
+                    "Ingrese una Opción: ";
                     cin >> opcionCola;
                     switch(opcionCola){
                         case 1:{
@@ -426,15 +448,21 @@ int main(){
                             cout << endl;
                             break;
                         }
+                        default:{
+                            cout << "Ingrese una Opción Válida.\n";
+                            break;
+                        }
                     }
                 }
                 break;
             }
-            case 0:{
-                cout << endl;
+
+            default:{
+                cout << "Ingrese una Opción Válida.\n" << endl;
                 break;
             }
         }
-    }while(opcionPrincipal!=4);
+    } while (opcionPrincipal!=4);
+
     getchar();
 };
