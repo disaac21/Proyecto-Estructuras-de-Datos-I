@@ -2,41 +2,41 @@
 #include "ArrayList.h"
 using namespace std;
 
-ArrayList::ArrayList(){
+ArrayList::ArrayList(){ //Constructor
     size = 0;
     capacidad = 10000;
     array = new Object*[capacidad];
 }
 
-ArrayList::~ArrayList(){
+ArrayList::~ArrayList(){ //Destructor
     this->anula();
     delete[] array;
 }
 
-bool ArrayList::inserta(Object* dato, int pos){
+bool ArrayList::inserta(Object* dato, int pos){ //Inserta un Elemento en una Posición 
 
     //Dentro de Rango
     if (pos >= 1 && pos <= size+1) {
-        Object** temp = new Object* [size+1]; //Lista de Ayuda (Copiar a Principal al Final)
+        Object** ListaTemp = new Object* [size+1]; //Lista de Ayuda (Copiar a Principal al Final)
         
         if (pos == 1 && size == 0) { //Primera Inserción
-            temp[size] = dato;
+            ListaTemp[size] = dato;
         } else if (pos == size+1) { //Última Posición
             for (int i = 0; i < size; i++){
-                temp[i] = this->array[i];
+                ListaTemp[i] = this->array[i];
             }
-            temp[size] = dato;
+            ListaTemp[size] = dato; //Inserta Dato en Última Posición
         } else {
             for (int i = 0; i <= size; i++) { //Inserción en el Medio de la Lista
-                temp[i] = this->array[i];
+                ListaTemp[i] = this->array[i];
                 if (i == pos-1) {
-                    temp[i] = dato; //Inserción en Posición
+                    ListaTemp[i] = dato; //Inserción en Posición
                 } else if (i > pos-1) {
-                    temp[i] = this->array[i-1]; //Corrimiento
+                    ListaTemp[i] = this->array[i-1]; //Corrimiento
                 }
             }
         }
-        this->array = temp;
+        this->array = ListaTemp; //Asignacion a Lista Original
         size++;
     } else {
         return false;
@@ -44,29 +44,29 @@ bool ArrayList::inserta(Object* dato, int pos){
     return true;
 }
 
-bool ArrayList::append(Object* dato) {
+bool ArrayList::append(Object* dato) { //Agregar a la Última Posición
     return inserta(dato, size++);
 }
 
-int ArrayList::localiza(Object* dato) {
+int ArrayList::localiza(Object* dato) { //Encuentra la Posición de un Objeto Dado
     if (!vacia()) {
         for (int i = 0; i < size; i++)
-            if (dato->equals(this->array[i]))
+            if (dato->equals(this->array[i])) //Compara Datos y Retorna Iteración si Encuentra
                 return i+1;
     }
     return -1;
 }
 
-Object* ArrayList::recupera(int pos) {
+Object* ArrayList::recupera(int pos) { //Encuentra el Objeto de una Posición Dada
     if (!vacia()) {
-        if (pos <= this->getSize()) {
+        if (pos <= this->getSize()) { //Encuentra Iteración con Posición
             return this->array[pos-1];
         }
     }
     return nullptr;
 }
 
-Object* ArrayList::suprime(int pos) {
+Object* ArrayList::suprime(int pos) { //Borra el Objeto de una Posición Dada
 
     Object* ObjetoDelete; //Objeto Borrado (Retornar)
     if (pos >= 1 && pos <= size) {
@@ -76,15 +76,15 @@ Object* ArrayList::suprime(int pos) {
         for (int i = 0; i < size-1; i++) { //Fixing Temp (Corriemientos)
             temp[i] = this->array[i];
             if (i >= pos-1)
-                temp[i] = this->array[i+1];
+                temp[i] = this->array[i+1]; //Asigna el Elemento
         }
-        array = temp;
+        array = temp; //Asignacion a Lista Original
         size--;
     }
     return ObjetoDelete;
 }
 
-void ArrayList::anula() {
+void ArrayList::anula() { //Borra Todos los Elementos de la Lista
     if (size == 0)
         return;
     for (int i = 0; i < this->getSize(); i++)
@@ -94,7 +94,7 @@ void ArrayList::anula() {
     this->size = 0;
 }
 
-Object* ArrayList::primero() {
+Object* ArrayList::primero() { //Devuelve el Primer Objeto de la Lista
     if(!vacia()){
         Object* x = this->recupera(0);
         return x;
@@ -103,7 +103,7 @@ Object* ArrayList::primero() {
     }
 }
 
-Object* ArrayList::anterior(int pos) {
+Object* ArrayList::anterior(int pos) { //Devuelve el Objeto Anterior al Objeto de la Posición Indicada
     if(!this->vacia()){
         if(pos == 1) {
             return nullptr;
@@ -117,7 +117,7 @@ Object* ArrayList::anterior(int pos) {
     }
 }
 
-Object* ArrayList::siguiente(int pos) {
+Object* ArrayList::siguiente(int pos) { //Devuelve el Objeto Siguiente al Objeto de la Posición Indicada
     if(pos >= 1 && pos <= this->getSize()) {
         return this->recupera(pos+1);
     } else {
@@ -125,17 +125,17 @@ Object* ArrayList::siguiente(int pos) {
     }
 }
 
-bool ArrayList::vacia() {
+bool ArrayList::vacia() { //Revisa si la Lista Está Vacía
     bool condicion = this->getSize() == 0;
     return condicion;
 }
 
-void ArrayList::imprime() {
+void ArrayList::imprime() { //Imprime todos los Elementos de la Lista
     for (int i = 0; i < this->getSize(); i++) {
         cout << i+1 << ") " << this->array[i]->toString() << endl;
     }
 }
 
-int ArrayList::getSize() {
+int ArrayList::getSize() { //Devuelve el Tamaño 
     return size;
 }
