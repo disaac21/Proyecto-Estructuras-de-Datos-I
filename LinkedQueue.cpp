@@ -13,7 +13,7 @@ LinkedQueue::~LinkedQueue()
         delete first;
 }
 
-bool LinkedQueue::encolar(Object *objeto)
+void LinkedQueue::encolar(Object *objeto)
 {
     Node *nodo = new Node();
     nodo->setDato(objeto);
@@ -51,7 +51,7 @@ void LinkedQueue::imprime()
     }
 }
 
-bool LinkedQueue::desencolar()
+Object* LinkedQueue::desencolar()
 {
 
     if (size <= 0)
@@ -68,7 +68,7 @@ bool LinkedQueue::desencolar()
         size--;
     }
 }
-void LinkedQueue::verfrente()
+Object* LinkedQueue::verfrente()
 {
     if (size <= 0)
     {
@@ -113,7 +113,3 @@ void LinkedQueue::anula()
         size = 0;
     }
 }
-
-void LinkedQueue::getSize(){
-
-}//TODO eliminar esto

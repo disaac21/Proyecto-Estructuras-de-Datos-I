@@ -14,13 +14,12 @@ private:
     int size;
 
 public:
-    LinkedQueue(/* args */);
+    LinkedQueue();
     ~LinkedQueue();
-    virtual bool encolar(Object*);
-    virtual bool desencolar();
-    virtual void verfrente();
+    virtual void encolar(Object*);
+    virtual Object* desencolar();
+    virtual Object* verfrente();
     virtual bool IsVacio();
     virtual void imprime();
     virtual void anula();
-    virtual void getSize();//TODO eliminar esto
 };

@@ -5,12 +5,11 @@
 class TDACola {
 
 	public:
-        virtual bool encolar(Object*) = 0;
-        virtual bool desencolar() = 0;
-        virtual void verfrente() = 0;
+        virtual void encolar(Object*) = 0;
+        virtual Object* desencolar() = 0;
+        virtual Object* verfrente() = 0;
 		virtual bool IsVacio()=0;
 		virtual void imprime()=0;
 		virtual void anula()=0;
-		virtual void getSize()=0; //TODO eliminar esto
 		
 };

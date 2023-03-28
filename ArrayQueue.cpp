@@ -3,10 +3,15 @@
 ArrayQueue::ArrayQueue()
 {
     size = 0;
-    capacidad = 1;
+    capacidad = 4;
     cola = new Object *[capacidad];
     frente = 0;
-    end = -1;
+    end = 0;
+    for (int i = 0; i < capacidad; i++)
+    {
+       cola[i] = nullptr;
+    }
+    
 }
 
 ArrayQueue::~ArrayQueue()
@@ -14,135 +19,112 @@ ArrayQueue::~ArrayQueue()
     this->anula(); // hace cada uno de los espacios null
     delete[] cola; // elimina el arreglo
 }
-
-void ArrayQueue::getSize()
+void ArrayQueue::encolar(Object *objeto)
 {
-    cout << endl
-         << "size: " << size << endl;
-    cout << endl
-         << "frente: " << frente << endl;
-    cout << endl
-         << "end: " << end << endl;
-} // TODO eliminar esto
-
-bool ArrayQueue::encolar(Object *objeto)
-{
-    if (end == size)
-    {
-        capacidad++;
-        size++;
-        if (end != 0)
-        {
-            cola[end + 1] = objeto;
-            end++;
-        }else{
-            cola[end] = objeto;
-        }
-        cout << "encolar a " << endl;
+    if(size==0){
+        cola[frente] = objeto;
     }
-    else if ((frente != 0) && (end == capacidad - 1))
-    {
-        // size++;                 // se le agrega espacio al arreglo para una nueva insercion
-        // cola[end + 1] = objeto; // coloca el puntero del objeto en en la posicion size
-        // end++;
+    else if(size==capacidad){
+        if(frente==0){
+            capacidad++;
+            Object** temporal = new Object*[capacidad];
+            for (int i = 0; i < size; i++)
+            {
+                temporal[i] = cola[i];
+            }
+            temporal[size] = objeto;
+            cola = temporal;
+            end++;
+        }
+        else if(frente>0 && end<frente){
+            cout << "Entra" << endl;
+            int cont = 0;
+            Object** temporal = new Object*[capacidad+1];
+            for (int i = frente; i < capacidad; i++){
+                temporal[cont] = cola[i];
+                cont++;
+            }
+            for (int i = 0; i <= end; i++)
+            {
+                temporal[cont] = cola[i];
+                cont++;
+            }
+            
+            temporal[capacidad] = objeto;
+            cola = new Object*[capacidad+1];
+            cola = temporal;
+            frente = 0;
+            end = capacidad;
+            capacidad++;
+        }    
+            
+    }
+    else if (size>=1 && (end+1)!=capacidad){
+        end++;
+        cola[end] = objeto;
+    }
+    else if(frente>0 && size>=1 && (end+1)==capacidad){
         end = 0;
         cola[end] = objeto;
-        cout << "encolar b " << endl;
-        size++;
-
-        // size++;
     }
-    else
-    {
-        size++;
-        cola[end + 1] = objeto;
-        end++;
-        cout << "encolar c " << endl;
-    }
+    
+    size++;
+    
+    
 }
-
-bool ArrayQueue::desencolar()
-{
-
-    if (this->IsVacio()) // usa el metodo Is vacio, el cual retorna true si la cola esta vacia
-    {
-        cout << endl
-             << "Cola vacia" << endl;
-    }
-    else
-    {
-        //! el nuevo
-        cout << cola[frente]->toString() << endl;
+Object* ArrayQueue::desencolar(){
+    if(!IsVacio()){
+        Object* temporal = cola[frente];
         cola[frente] = nullptr;
-        if (frente == end)
-        {
-            frente = 0;
-            cout << "desencolar if" << endl;
-            size--;
-        }
+        size--;
+        if(frente+1==capacidad)
+            frente=0;
         else
-        {
             frente++;
-            cout << "desencolar else" << endl;
-            size--;
+        return temporal;
+    }
+}
+
+Object* ArrayQueue::verfrente(){
+    if(!IsVacio()){
+        return cola[frente];
+    }
+    else{
+        cout << "La cola esta vacia" << endl;
+    }
+}
+bool ArrayQueue::IsVacio(){
+    return size == 0;
+}
+
+void ArrayQueue::imprime(){
+    if(!IsVacio()){
+        for (int i = 0; i < capacidad; i++){
+            if(cola[i] == nullptr){
+                cout << " [] ";
+            }
+            else
+                cout << "[ " << cola[i]->toString() << " ] ";
         }
-
-        // ! el de antes
-        // cout << endl;
-        // cout << cola[0]->toString() << endl; // imprime el primer dato que se ingreso a la cola
-
-        // for (size_t i = 0; i < size; i++)
-        // {
-        //     cola[i] = cola[i + 1]; // hace un corrimiento para cada espacio de la cola
-        // }
-
-        // cola[size] = nullptr;//el ultimo espacio de la cola lo liberamos
-        // size--;// le restamos al tamaño de la cola
-    }
-}
-
-void ArrayQueue::verfrente()
-{
-    if (this->IsVacio()) // usa el metodo Is vacio, el cual retorna true si la cola esta vacia
-    {
-        cout << endl
-             << "Cola vacia" << endl;
-    }
-    else
-    {
-        cout << endl
-             << cola[0]->toString() << endl;
-    }
-}
-
-bool ArrayQueue::IsVacio()
-{
-    if (size <= 0)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
-
-void ArrayQueue::imprime()
-{
-
-    if (this->IsVacio())
-    {
-        cout << endl
-             << "Cola vacia" << endl;
-    }
-    else
-    {
         cout << endl;
-        for (size_t i = 0; i < size; i++) // frente y end
-        {
-            if (cola[i] != nullptr)
+        if(frente==0){
+            for (int i = 0; i < size; i++){
+                cout << i << ".- " << cola[i]->toString() << endl;
+            }
+        }
+        else if(frente > 0 && end > frente){
+            for (int i = frente; i <= end; i++){
+                cout << i << ".- " << cola[i]->toString() << endl;
+            }
+            
+        }
+        else if(frente > 0 && end < frente){
+            for (int i = frente; i < capacidad; i++){
+                cout << i << ".- " << cola[i]->toString() << endl;
+            }
+            for (int i = 0; i <= end; i++)
             {
-                cout << i + 1 << ". " << cola[i]->toString() << endl;
+                cout << i << ".- " << cola[i]->toString() << endl;
             }
         }
     }
@@ -150,16 +132,12 @@ void ArrayQueue::imprime()
 
 void ArrayQueue::anula()
 {
-    for (size_t i = 0; i < size; i++)
-    {
-        cola[i] = nullptr;
+    for (size_t i = 0; i < capacidad; i++){
+        delete cola[i];
     }
-
     size = 0;
-    capacidad = 6;
+    capacidad = 4;
+    cola = new Object *[capacidad];
     frente = 0;
-    end = -1;
-
-    cout << endl
-         << "Cola vacia" << endl;
+    end = 0;
 }

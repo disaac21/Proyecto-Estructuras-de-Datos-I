@@ -373,56 +373,61 @@ void operacionesCola(TDACola *Cola)
         string Nombre = "";
         int Cuenta;
 
-        switch (opcion)
-        {
-        case 1:
-            cout << endl;
-            cout << "Ingrese el nombre del alumno: ";
-            cin >> Nombre;
-            cout << "Ingrese el numero de cuenta del alumno: ";
-            cin >> Cuenta;
-
-            Cola->encolar(new Alumno(Nombre, Cuenta));
-            break;
-
-        case 2:
-            Cola->desencolar();
-            break;
-
-        case 3:
-            Cola->verfrente();
-            break;
-
-        case 4:
-            if (Cola->IsVacio())
-            {
-                cout << endl
-                     << "Está Vacía" << endl;
+        switch (opcion){
+            case 1:{
+                int repetirInserta = 1;
+                while (repetirInserta == 1)
+                { // metodo
+                    cout << "Ingrese el nombre del alumno: ";
+                    cin >> Nombre;
+                    cout << "Ingrese el numero de cuenta del alumno: ";
+                    cin >> Cuenta;
+                    Cola->encolar(new Alumno(Nombre, Cuenta));
+                    cout << "Alumno encolado correctamente" << endl;
+                    repetirInserta = repetirCiclo();
+                }
+                break;
             }
-            else
-            {
-                cout << endl
-                     << "No Está Vacía" << endl;
+            case 2:{
+                if(Cola->IsVacio()){
+                    cout << "La Cola esta vacia" << endl;
+                }
+                else{
+                    cout << "El Alumno sacado de la cola es : " << Cola->desencolar()->toString() << endl;
+                }
+                
+                break;
             }
-            break;
-
-        case 5:
-            Cola->imprime();
-            break;
-
-        case 6:
-            Cola->anula();
-            break;
-
-        //TODO eliminar esto
-        case 8:
-            Cola->getSize();
-            break;
-
-        default:
-            break;
+            case 3:{
+                cout << "El elemento al frente de la cola es: " << Cola->verfrente()->toString() << endl;
+                break;
+            }
+            case 4:{
+                if (Cola->IsVacio()){
+                    cout << "La Cola Está Vacía" << endl;
+                }
+                else{
+                    cout << "La Cola No Está Vacía" << endl;
+                }
+                break;
+            }
+            case 5:{
+                if(Cola->IsVacio()){
+                    cout << "La cola no tiene elementos" << endl;
+                }
+                else{
+                    Cola->imprime();
+                }
+                break;
+            }
+            case 6:{
+                Cola->anula();
+                cout << "Elementos eliminados de la cola exitosamente" << endl;
+                break;
+            }
+            default:
+                break;
         }
-
     } while (opcion != 7);
 }
 
