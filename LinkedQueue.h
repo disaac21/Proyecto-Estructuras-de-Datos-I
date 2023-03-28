@@ -22,4 +22,5 @@ public:
     virtual bool IsVacio();
     virtual void imprime();
     virtual void anula();
+    virtual void getSize();//TODO eliminar esto
 };

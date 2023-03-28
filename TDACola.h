@@ -11,5 +11,6 @@ class TDACola {
 		virtual bool IsVacio()=0;
 		virtual void imprime()=0;
 		virtual void anula()=0;
+		virtual void getSize()=0; //TODO eliminar esto
 		
 };

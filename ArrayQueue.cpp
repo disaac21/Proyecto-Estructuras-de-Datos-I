@@ -15,6 +15,10 @@ ArrayQueue::~ArrayQueue()
     delete[] cola; // elimina el arreglo
 }
 
+void ArrayQueue::getSize(){
+    cout << endl << "size: " << size << endl;
+}//TODO eliminar esto
+
 bool ArrayQueue::encolar(Object *objeto)
 {
     if (size == capacidad)
@@ -23,6 +27,7 @@ bool ArrayQueue::encolar(Object *objeto)
         size++;
         cola[end + 1] = objeto;
         end++;
+        cout << "encolar a " << endl;
     }
     else if ((frente != 0) && (end == capacidad - 1))
     {
@@ -31,13 +36,18 @@ bool ArrayQueue::encolar(Object *objeto)
         // end++;
         end = 0;
         cola[end] = objeto;
+        cout << "encolar b " << endl;
         size++;
+
+        //size++;
     }
     else
     {
         size++;
         cola[end + 1] = objeto;
         end++;
+        cout << "encolar c " << endl;
+
     }
 }
 
@@ -54,13 +64,18 @@ bool ArrayQueue::desencolar()
         //! el nuevo
         cout << cola[frente]->toString() << endl;
         cola[frente] = nullptr;
-        if (frente == end)
+        if (frente == size)
         {
             frente = 0;
+            cout << "desencolar if" << endl;
+            size--;
         }
         else
         {
             frente++;
+            cout << "desencolar else" << endl;
+            size--;
+
         }
 
         // ! el de antes

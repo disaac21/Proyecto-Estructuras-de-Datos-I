@@ -113,3 +113,7 @@ void LinkedQueue::anula()
         size = 0;
     }
 }
+
+void LinkedQueue::getSize(){
+
+}//TODO eliminar esto
