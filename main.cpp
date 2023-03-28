@@ -378,6 +378,7 @@ void operacionesCola(TDACola *Cola)
                 int repetirInserta = 1;
                 while (repetirInserta == 1)
                 { // metodo
+                    cin.ignore();
                     cout << "Ingrese el nombre del alumno: ";
                     getline(cin, Nombre);
                     cout << "Ingrese el numero de cuenta del alumno: ";
