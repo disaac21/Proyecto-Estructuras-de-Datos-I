@@ -379,7 +379,7 @@ void operacionesCola(TDACola *Cola)
                 while (repetirInserta == 1)
                 { // metodo
                     cout << "Ingrese el nombre del alumno: ";
-                    cin >> Nombre;
+                    getline(cin, Nombre);
                     cout << "Ingrese el numero de cuenta del alumno: ";
                     cin >> Cuenta;
                     Cola->encolar(new Alumno(Nombre, Cuenta));
