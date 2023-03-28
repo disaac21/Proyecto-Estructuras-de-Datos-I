@@ -126,9 +126,10 @@ void ArrayQueue::imprime(){// metodo para imprimir los elementos de la cola
 }
 void ArrayQueue::anula()//metodo para borrar los elementos de la cola
 {
-    for (int i = 0; i < capacidad; i++){//elimina elementos de la cola
-        delete cola[i];
-    }
+    // for (int i = 0; i < capacidad; i++){//elimina elementos de la cola
+    //     delete cola[i];
+    // }
+    delete this->cola;
     //Se vuelve a restaurar la cola a como estaba al comienzo
     size = 0;
     capacidad = 10;
