@@ -1,9 +1,9 @@
 #include "LinkedQueue.h"
 
-LinkedQueue::LinkedQueue(/* args */)
+LinkedQueue::LinkedQueue()
 {
-    first = 0;
-    ultimo = 0;
+    first = nullptr;
+    ultimo = nullptr;
     size = 0;
 }
 
@@ -15,101 +15,60 @@ LinkedQueue::~LinkedQueue()
 
 void LinkedQueue::encolar(Object *objeto)
 {
-    Node *nodo = new Node();
-    nodo->setDato(objeto);
-    if (size == 0)
-    {
-        first = nodo;
-        ultimo = nodo;
+    Node *temporal = new Node();
+    temporal->setDato(objeto);
+    if (size == 0){
+        first = temporal;
+        ultimo = temporal;
+        size++;
+    }
+    else if(size==1){
+        ultimo->setDato(temporal->getDato());
+        ultimo->setSiguiente(first);
         size++;
     }
     else
     {
-        nodo->setAnterior(ultimo);
-        ultimo->setSiguiente(nodo);
-        ultimo = nodo;
+        
+        temporal->setAnterior(nullptr);
+        temporal->setSiguiente(ultimo);
+        ultimo->setAnterior(temporal);
+        ultimo = temporal;
         size++;
     }
 }
 
 void LinkedQueue::imprime()
 {
-    if (first == nullptr || first == 0)
+    Node *temporal = first;
+    for (int i = 0; i < size; i++)
     {
-        cout << endl
-             << "Esta vacia" << endl;
+        cout << i+1 << temporal->getDato()->toString() << endl;
+        temporal = temporal->getAnterior();
     }
-    else
-    {
-        Node *nodo = first;
-        cout << endl;
-        do
-        {
-            cout << nodo->getDato()->toString() << endl;
-            nodo = nodo->getSiguiente();
-        } while (nodo != NULL);
-    }
+    
 }
 
 Object* LinkedQueue::desencolar()
 {
-
-    if (size <= 0)
-    {
-        cout << endl
-             << "Esta vacia" << endl;
-    }
-    else
-    {
-        cout << endl
-             << first->getDato()->toString() << endl; // 1 2 3 4
-        first = first->getSiguiente();                // 1 2 3 4
-        // first->getAnterior()->~Node();
-        size--;
-    }
+    Node *temporal = new Node();
+    temporal = first;
+    first = first->getSiguiente(); 
+    size--;
+    return temporal->getDato();
 }
 Object* LinkedQueue::verfrente()
 {
-    if (size <= 0)
-    {
-        cout << endl
-             << "Esta vacia" << endl;
-    }
-    else
-    {
-        cout << endl
-             << first->getDato()->toString() << endl;
-    }
+    return first->getDato();
 }
 bool LinkedQueue::IsVacio()
 {
-    if (first == NULL && ultimo == NULL)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return size==0;
 }
-void LinkedQueue::anula()
-{
-    if (size <= 0)
-    {
-        cout << endl
-             << "Esta vacia" << endl;
-    }
-    else
-    {
-        Node *nodo = new Node();
-        do
-        {
-            ultimo->setSiguiente(NULL);
-            ultimo = ultimo->getAnterior();
-        } while (ultimo == first);
+void LinkedQueue::anula(){
+    delete ultimo;
 
-        first = NULL;
-        ultimo = NULL;
-        size = 0;
-    }
+    first = nullptr;
+    ultimo = nullptr;
+    size = 0;
 }
