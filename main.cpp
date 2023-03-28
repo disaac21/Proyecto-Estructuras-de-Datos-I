@@ -1,3 +1,4 @@
+//Librerias
 #include <iostream>
 #include <string>
 #include <windows.h>
@@ -20,8 +21,7 @@
 
 using namespace std;
 
-int repetirCiclo()
-{ // Ciclo "Seguir Ingresando" para Operación Insertar
+int repetirCiclo(){ // Ciclo "Seguir Ingresando" para Operación Insertar
     int opcionRepetirCiclo = 0;
     cout << endl
          << "1. Seguir Ingresando" << endl
@@ -31,8 +31,7 @@ int repetirCiclo()
     return opcionRepetirCiclo;
 }
 
-int menuOperacionesLista()
-{ // Menu de Listas
+int menuOperacionesLista(){ // Menu de operaciones de las Listas(Array y de Nodos)
     int opcion = 0;
     cout << endl
          << " ---------- Operaciones de Listas ---------- " << endl
@@ -50,8 +49,7 @@ int menuOperacionesLista()
     cin >> opcion;
     return opcion;
 }
-int menuOperacionesPila()
-{ // Menu de Pilas
+int menuOperacionesPila(){ // Menu de operaciones de las Pilas(Array y de los Nodos)
     int opcion = 0;
     cout << endl
          << " ---------- Operaciones de Pilas ---------- " << endl
@@ -66,8 +64,7 @@ int menuOperacionesPila()
     cin >> opcion;
     return opcion;
 }
-int menuOperacionesCola()
-{ // Menu de Colas
+int menuOperacionesCola(){ // Menu de operaciones de las Colas(Array y de Nodos)
     int opcion = 0;
     cout << endl
          << " ---------- Operaciones de Colas ---------- " << endl
@@ -83,8 +80,7 @@ int menuOperacionesCola()
     return opcion;
 }
 
-void operacionesLista(TDALista *WorkingList)
-{ // Operaciones de Listas
+void operacionesLista(TDALista *WorkingList){ // Operaciones de Listas
     int opcion = 0;
 
     do
@@ -283,98 +279,97 @@ void operacionesLista(TDALista *WorkingList)
         }
     } while (opcion != 10);
 }
-void operacionesPila(TDAPila *stack)
-{ // Operaciones de Pilas
+void operacionesPila(TDAPila *stack){ // Operaciones de Pilas
     int opcion = 0;
-    do
-    {
+    do{
         opcion = menuOperacionesPila(); // se llama el Menu de Operaciones para ingresar la opcion que desean
         char caracter;                  // variable donde se guardaran los simbolos que desean los usuarios y luego se creara el objeto.
 
-        switch (opcion)
-        {
-        case 1:
-        {
-            int repetirInserta = 1;
-            while (repetirInserta == 1)
-            { // metodo push
-                cout << "Ingrese un simbolo: ";
-                cin >> caracter;
-                stack->push(new Simbolo(caracter)); // se agrega el simbolo a la arraystack
-                cout << "Simbolo empujado correctamente" << endl;
-                repetirInserta = repetirCiclo();
-            }
-            break;
-        }
-        case 2:
-        { // metodo pop
-            if (stack->vacia())
+        switch (opcion){
+            case 1:
             {
-                cout << "La pila esta vacia" << endl;
+                int repetirInserta = 1;
+                while (repetirInserta == 1)
+                { // metodo push
+                    cout << "Ingrese un simbolo: ";
+                    cin >> caracter;
+                    stack->push(new Simbolo(caracter)); // se agrega el simbolo a la arraystack
+                    cout << "Simbolo empujado correctamente" << endl;
+                    repetirInserta = repetirCiclo();
+                }
+                break;
             }
-            else
-            {
-                cout << "El elemento sacado de la Pila es: " << stack->pop()->toString() << endl;
+            case 2:
+            { // metodo pop
+                if (stack->vacia())
+                {
+                    cout << "La pila esta vacia" << endl;
+                }
+                else
+                {
+                    cout << "El elemento sacado de la Pila es: " << stack->pop()->toString() << endl;
+                }
+                break;
             }
-            break;
-        }
-        case 3:
-        { // metodo peek
-            if (!(stack->vacia()))
-                cout << "El elemento al tope de la pila es: " << stack->peek()->toString() << endl;
-            else
-                cout << "La Pila esta vacia" << endl;
-            break;
-        }
-        case 4:
-        { // metodo vacia
-            if (stack->vacia())
-                cout << "La Pila esta vacia" << endl;
-            else
-                cout << "La Pila no esta vacia" << endl;
-            break;
-        }
-        case 5:
-        { // metodo imprimir pila
-            if (stack->vacia())
-                cout << "La Pila no contiene elementos" << endl;
-            else
-                stack->imprime();
-            break;
-        }
-        case 6:
-        { // metodo anula
-            if (stack->vacia())
-            {
-                cout << "La Pila no contiene elementos" << endl;
+            case 3:
+            { // metodo peek
+                if (!(stack->vacia()))
+                    cout << "El elemento al tope de la pila es: " << stack->peek()->toString() << endl;
+                else
+                    cout << "La Pila esta vacia" << endl;
+                break;
             }
-            else
-            {
-                stack->anula();
-                cout << "Pila vaciada exitosamente" << endl;
+            case 4:
+            { // metodo vacia
+                if (stack->vacia())
+                    cout << "La Pila esta vacia" << endl;
+                else
+                    cout << "La Pila no esta vacia" << endl;
+                break;
             }
+            case 5:
+            { // metodo imprimir pila
+                if (stack->vacia())
+                    cout << "La Pila no contiene elementos" << endl;
+                else
+                    stack->imprime();
+                break;
+            }
+            case 6:
+            { // metodo anula
+                if (stack->vacia())
+                {
+                    cout << "La Pila no contiene elementos" << endl;
+                }
+                else
+                {
+                    stack->anula();
+                    cout << "Pila vaciada exitosamente" << endl;
+                }
 
-            break;
-        }
-        case 7:
-        {
-            cout << endl;
-            break;
-        }
+                break;
+            }
+            case 7:{//retorno al menu de Trabajo de Pilas
+                cout << endl;
+                break;
+            }
+            default:{//default
+                cout << "Ingrese una opcion valida" << endl;
+                break;
+            }
+                
         }
     } while (opcion != 7);
 }
-void operacionesCola(TDACola *Cola)
-{ // Operaciones de Colas
+void operacionesCola(TDACola *Cola){ // Operaciones de Colas
     int opcion = 0;
-    do
-    {
+    do{
         opcion = menuOperacionesCola();
         string Nombre = "";
         int Cuenta;
 
         switch (opcion){
-            case 1:{
+            case 1:{//case para encolar Alumnos
                 int repetirInserta = 1;
                 while (repetirInserta == 1)
                 { // metodo
@@ -388,7 +383,7 @@ void operacionesCola(TDACola *Cola)
                 }
                 break;
             }
-            case 2:{
+            case 2:{//case para desencolar alumnos
                 if(Cola->IsVacio()){
                     cout << "La Cola esta vacia" << endl;
                 }
@@ -398,7 +393,7 @@ void operacionesCola(TDACola *Cola)
                 
                 break;
             }
-            case 3:{
+            case 3:{//case para ver el elemento al frente de la cola
                 if(Cola->IsVacio()){
                     cout << "La Cola esta vacia" << endl;
                 }
@@ -407,7 +402,7 @@ void operacionesCola(TDACola *Cola)
                 }
                 break;
             }
-            case 4:{
+            case 4:{//case para verificar si la cola esta vacia o no
                 if (Cola->IsVacio()){
                     cout << "La Cola Está Vacía" << endl;
                 }
@@ -416,7 +411,7 @@ void operacionesCola(TDACola *Cola)
                 }
                 break;
             }
-            case 5:{
+            case 5:{//case para imprimir los elementos en la cola
                 if(Cola->IsVacio()){
                     cout << "La cola no tiene elementos" << endl;
                 }
@@ -425,23 +420,28 @@ void operacionesCola(TDACola *Cola)
                 }
                 break;
             }
-            case 6:{
+            case 6:{//metodo para vaciar la cola
                 Cola->anula();
                 cout << "Elementos eliminados de la cola exitosamente" << endl;
                 break;
             }
-            default:
+            case 7:{//regresar al menu de Trabajo con Colas
+                cout << endl;
+                break;
+            }
+            default://default
+                cout << "Ingrese una opcion valida" << endl;
                 break;
         }
     } while (opcion != 7);
 }
 
-int main()
-{ // Main
+int main(){ // Main
 
     SetConsoleCP(CP_UTF8);
     SetConsoleOutputCP(CP_UTF8);
-    int opcionPrincipal = 0, opcionLista = 0, opcionPila = 0, opcionCola = 0;
+    int opcionPrincipal = 0, opcionLista = 0, opcionPila = 0, opcionCola = 0;//opciones para los menus
+    //Listas con las que se trabajaran para cada caso
     ArrayList *WorkArrayList = new ArrayList();
     LinkedList *WorkLinkedList = new LinkedList();
     ArrayStack *workArrayStack = new ArrayStack();
@@ -449,8 +449,8 @@ int main()
     ArrayQueue *ColaArreglo = new ArrayQueue();
     LinkedQueue *ColaNodos = new LinkedQueue();
 
-    do
-    {
+    do{
+        //Menu Principal
         cout << " ---------- MENU PRINCIPAL ---------- " << endl
              << "1. Trabajar con Lista " << endl
              << "2. Trabajar con Pilas " << endl
@@ -459,128 +459,115 @@ int main()
              << "Ingrese una Opción: ";
         cin >> opcionPrincipal;
 
-        switch (opcionPrincipal)
-        {
-        case 1:
-        {
-            while (opcionLista != 3)
-            {
-                cout << endl
-                     << " ---------- Menu Tipo de Lista ---------- " << endl
-                     << "1. Trabajar con ArrayList " << endl
-                     << "2. Trabajar con LinkedList " << endl
-                     << "3. Regresar al Menu Principal " << endl
-                     << "Ingrese una Opción: ";
-                cin >> opcionLista;
-                switch (opcionLista)
-                {
-                case 1:
-                {
-                    operacionesLista(WorkArrayList); // se llama el metodo donde se desplagaran las operaciones de la Lista
-                    break;
+        switch (opcionPrincipal){
+            case 1:{
+                while (opcionLista != 3){
+                    //Menu para escoger con que tipo de TDALista desea trabajar
+                    cout << endl
+                        << " ---------- Menu Tipo de Lista ---------- " << endl
+                        << "1. Trabajar con ArrayList " << endl
+                        << "2. Trabajar con LinkedList " << endl
+                        << "3. Regresar al Menu Principal " << endl
+                        << "Ingrese una Opción: ";
+                    cin >> opcionLista;
+                    switch (opcionLista){
+                        case 1:{
+                            operacionesLista(WorkArrayList); // se llama el metodo donde se desplagaran las operaciones de la Lista
+                            break;
+                        }
+                        case 2:{
+                            operacionesLista(WorkLinkedList); // se llama el metodo donde se desplagaran las operaciones de la Lista
+                            break;
+                        }
+                        case 3:{//regreso al menu principal
+                            cout << endl;
+                            break;
+                        }
+                        default:{
+                            cout << "Ingrese una Opción Válida.\n";
+                            break;
+                        }
+                    }
                 }
-                case 2:
-                {
-                    operacionesLista(WorkLinkedList); // se llama el metodo donde se desplagaran las operaciones de la Lista
-                    break;
-                }
-                case 3:
-                {
-                    cout << endl;
-                    break;
-                }
-                default:
-                {
-                    cout << "Ingrese una Opción Válida.\n";
-                    break;
-                }
-                }
+                opcionLista=0;
+                break;
             }
-            break;
-        }
 
-        case 2:
-        {
-            while (opcionPila != 3)
-            {
-                cout << endl
-                     << " ---------- Menu Tipo de Pila ---------- " << endl
-                     << "1. Trabajar con ArrayStack " << endl
-                     << "2. Trabajar con LinkedStack " << endl
-                     << "3. Regresar al Menu Principal " << endl
-                     << "Ingrese una Opción: ";
-                cin >> opcionPila;
-                switch (opcionPila)
-                {
-                case 1:
-                {
-                    operacionesPila(workArrayStack); // se llama el metodo donde se desplagaran las operaciones de la Pila
-                    break;
+            case 2:{
+                while (opcionPila != 3){
+                    //Menu para escoger con que tipo de TDAPila desea trabajar
+                    cout << endl
+                        << " ---------- Menu Tipo de Pila ---------- " << endl
+                        << "1. Trabajar con ArrayStack " << endl
+                        << "2. Trabajar con LinkedStack " << endl
+                        << "3. Regresar al Menu Principal " << endl
+                        << "Ingrese una Opción: ";
+                    cin >> opcionPila;
+                    switch (opcionPila){
+                        case 1:
+                        {
+                            operacionesPila(workArrayStack); // se llama el metodo donde se desplagaran las operaciones de la Pila
+                            break;
+                        }
+                        case 2:
+                        {
+                            operacionesPila(workLinkedStack); // se llama el metodo donde se desplagaran las operaciones de la Pila
+                            break;
+                        }
+                        case 3:{//regreso al menu principal
+                            cout << endl;
+                            break;
+                        }
+                        default:{//default
+                            cout << "Ingrese una Opción Válida.\n";
+                            break;
+                        }
+                    }
                 }
-                case 2:
-                {
-                    operacionesPila(workLinkedStack); // se llama el metodo donde se desplagaran las operaciones de la Pila
-                    break;
-                }
-                case 3:
-                {
-                    cout << endl;
-                    break;
-                }
-                default:
-                {
-                    cout << "Ingrese una Opción Válida.\n";
-                    break;
-                }
-                }
+                opcionPila=0;
+                break;
             }
-            break;
-        }
 
-        case 3:
-        {
-            while (opcionCola != 3)
-            {
-                cout << endl
-                     << " ---------- Menu Tipo de Cola ---------- " << endl
-                     << "1. Trabajar con ArrayQueue " << endl
-                     << "2. Trabajar con LinkedQueue " << endl
-                     << "3. Regresar al Menu Principal " << endl
-                     << "Ingrese una Opción: ";
-                cin >> opcionCola;
-                switch (opcionCola)
-                {
-                case 1:
-                {
-                    operacionesCola(ColaArreglo); // se llama el metodo donde se desplagaran las operaciones de la Cola
-                    break;
+            case 3:{
+                while (opcionCola != 3){
+                    //Menu para escoger con que tipo de TDACola desea trabajar
+                    cout << endl
+                        << " ---------- Menu Tipo de Cola ---------- " << endl
+                        << "1. Trabajar con ArrayQueue " << endl
+                        << "2. Trabajar con LinkedQueue " << endl
+                        << "3. Regresar al Menu Principal " << endl
+                        << "Ingrese una Opción: ";
+                    cin >> opcionCola;
+                    switch (opcionCola){
+                        case 1:
+                        {
+                            operacionesCola(ColaArreglo); // se llama el metodo donde se desplagaran las operaciones de la Cola
+                            break;
+                        }
+                        case 2:
+                        {
+                            operacionesCola(ColaNodos); // se llama el metodo donde se desplagaran las operaciones de la Cola
+                            break;
+                        }
+                        case 3:{//regreso al menu principal
+                            cout << endl;
+                            break;
+                        }
+                        default:{//default
+                            cout << "Ingrese una Opción Válida.\n";
+                            break;
+                        }
+                    }
                 }
-                case 2:
-                {
-                    operacionesCola(ColaNodos); // se llama el metodo donde se desplagaran las operaciones de la Cola
-                    break;
-                }
-                case 3:
-                {
-                    cout << endl;
-                    break;
-                }
-                default:
-                {
-                    cout << "Ingrese una Opción Válida.\n";
-                    break;
-                }
-                }
+                opcionCola=0;
+                break;
             }
-            break;
-        }
 
-        default:
-        {
-            cout << "Ingrese una Opción Válida.\n"
-                 << endl;
-            break;
-        }
+            default:{//default menu principal
+                cout << "Ingrese una Opción Válida.\n"
+                    << endl;
+                break;
+            }
         }
     } while (opcionPrincipal != 4);
     // destructores
