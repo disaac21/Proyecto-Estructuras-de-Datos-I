@@ -115,7 +115,7 @@ void ArrayQueue::imprime(){
                 cout << i << ".- " << cola[i]->toString() << endl;
             }
         }
-        else if(frente > 0 && end > frente){
+        else if(frente > 0 && end >= frente){
             for (int i = frente; i <= end; i++){
                 cout << i << ".- " << cola[i]->toString() << endl;
             }
