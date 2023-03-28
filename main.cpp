@@ -32,7 +32,7 @@ int repetirCiclo()
 }
 
 int menuOperacionesLista()
-{ // Menu de Listas
+{ // Menu de operaciones de Listas(Array y Linked)
     int opcion = 0;
     cout << endl
         << " ---------- Operaciones de Listas ---------- " << endl
@@ -51,7 +51,7 @@ int menuOperacionesLista()
     return opcion;
 }
 int menuOperacionesPila()
-{ // Menu de Pilas
+{ // Menu de operaciones de Pila(Array y Linked)
     int opcion = 0;
     cout << endl
         << " ---------- Operaciones de Pilas ---------- " << endl
@@ -67,7 +67,7 @@ int menuOperacionesPila()
     return opcion;
 }
 int menuOperacionesCola()
-{ // Menu de Colas
+{ // Menu de operaciones de Cola(Array y Linked)
     int opcion = 0;
     cout << endl
         << " ---------- Operaciones de Colas ---------- " << endl
@@ -374,7 +374,7 @@ void operacionesCola(TDACola *Cola)
         int Cuenta;
 
         switch (opcion){
-            case 1:{
+            case 1:{//case para empujar alumnos a la cola
                 int repetirInserta = 1;
                 while (repetirInserta == 1)
                 { // metodo
@@ -388,7 +388,7 @@ void operacionesCola(TDACola *Cola)
                 }
                 break;
             }
-            case 2:{
+            case 2:{//case para desencolar alumno de la cola
                 if(Cola->IsVacio()){
                     cout << "La Cola esta vacia" << endl;
                 }
@@ -398,7 +398,7 @@ void operacionesCola(TDACola *Cola)
                 
                 break;
             }
-            case 3:{
+            case 3:{//case para ver el alumno al frente de la cola
                 if(Cola->IsVacio()){
                     cout << "La Cola esta vacia" << endl;
                 }
@@ -407,7 +407,7 @@ void operacionesCola(TDACola *Cola)
                 }
                 break;
             }
-            case 4:{
+            case 4:{//case para verificar si la cola esta vacia o no
                 if (Cola->IsVacio()){
                     cout << "La Cola Está Vacía" << endl;
                 }
@@ -416,7 +416,7 @@ void operacionesCola(TDACola *Cola)
                 }
                 break;
             }
-            case 5:{
+            case 5:{//case para imprimir los elementos de la cola
                 if(Cola->IsVacio()){
                     cout << "La cola no tiene elementos" << endl;
                 }
@@ -425,7 +425,7 @@ void operacionesCola(TDACola *Cola)
                 }
                 break;
             }
-            case 6:{
+            case 6:{//case para borrar los elementos de la cola
                 if(Cola->IsVacio()){
                     cout << "La Cola esta vacia" << endl;
                 }
@@ -434,6 +434,10 @@ void operacionesCola(TDACola *Cola)
                     cout << "Elementos eliminados de la cola exitosamente" << endl;
                 }
                 
+                break;
+            }
+            case 7:{
+                cout << endl;
                 break;
             }
             default:
@@ -447,7 +451,7 @@ int main()
 
     SetConsoleCP(CP_UTF8);
     SetConsoleOutputCP(CP_UTF8);
-    int opcionPrincipal = 0, opcionLista = 0, opcionPila = 0, opcionCola = 0;
+    int opcionPrincipal = 0, opcionLista = 0, opcionPila = 0, opcionCola = 0;//variables para tomar las opciones de los usuarios
     ArrayList *WorkArrayList = new ArrayList();
     LinkedList *WorkLinkedList = new LinkedList();
     ArrayStack *workArrayStack = new ArrayStack();
@@ -457,6 +461,7 @@ int main()
 
     do
     {
+        //Menu Principal
         cout << " ---------- MENU PRINCIPAL ---------- " << endl
              << "1. Trabajar con Lista " << endl
              << "2. Trabajar con Pilas " << endl
@@ -471,6 +476,7 @@ int main()
         {
             while (opcionLista != 3)
             {
+                //Menu para escoger con que tipo de Lista trabajar (Array o Linked)
                 cout << endl
                      << " ---------- Menu Tipo de Lista ---------- " << endl
                      << "1. Trabajar con ArrayList " << endl
@@ -490,7 +496,7 @@ int main()
                     operacionesLista(WorkLinkedList); // se llama el metodo donde se desplagaran las operaciones de la Lista
                     break;
                 }
-                case 3:
+                case 3://regresar al menu principal
                 {
                     cout << endl;
                     break;
@@ -509,6 +515,7 @@ int main()
         {
             while (opcionPila != 3)
             {
+                //Menu para escoger con que tipo de Pila trabajar (Array o Linked)
                 cout << endl
                      << " ---------- Menu Tipo de Pila ---------- " << endl
                      << "1. Trabajar con ArrayStack " << endl
@@ -528,7 +535,7 @@ int main()
                     operacionesPila(workLinkedStack); // se llama el metodo donde se desplagaran las operaciones de la Pila
                     break;
                 }
-                case 3:
+                case 3://regresar al menu principal
                 {
                     cout << endl;
                     break;
@@ -547,6 +554,7 @@ int main()
         {
             while (opcionCola != 3)
             {
+                //Menu para escoger con que tipo de Cola trabajar (Array o Linked)
                 cout << endl
                      << " ---------- Menu Tipo de Cola ---------- " << endl
                      << "1. Trabajar con ArrayQueue " << endl
@@ -566,7 +574,7 @@ int main()
                     operacionesCola(ColaNodos); // se llama el metodo donde se desplagaran las operaciones de la Cola
                     break;
                 }
-                case 3:
+                case 3://regresar al menu principal
                 {
                     cout << endl;
                     break;
