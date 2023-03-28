@@ -13,26 +13,25 @@ LinkedQueue::~LinkedQueue()
         delete ultimo;
 }
 
-void LinkedQueue::encolar(Object *objeto)
+void LinkedQueue::encolar(Object *objeto) // moli gadumd daniel
 {
     Node *temporal = new Node();
     temporal->setDato(objeto);
     if (size == 0){
-        first->setDato(temporal->getDato());
-        ultimo->setDato(temporal->getDato());
+        first = temporal;
+        ultimo = temporal;
         size++;
     }
     else if(size==1){
-        ultimo->setDato(temporal->getDato());
-        ultimo->setSiguiente(first);
+        first->setSiguiente(temporal);
+        ultimo = temporal;
         size++;
     }
     else
     {
         
-        temporal->setAnterior(nullptr);
-        temporal->setSiguiente(ultimo);
-        ultimo->setAnterior(temporal);
+        temporal->setAnterior(ultimo);
+        ultimo->setSiguiente(temporal);
         ultimo = temporal;
         size++;
     }
@@ -43,17 +42,21 @@ void LinkedQueue::imprime()
     Node *temporal = first;
     for (int i = 0; i < size; i++)
     {
-        cout << i+1  << ".- "<< temporal->getDato()->toString() << endl;
-        temporal = temporal->getAnterior();
+        cout << i+1 << temporal->getDato()->toString() << endl;
+        temporal = temporal->getSiguiente();
     }
     
 }
 
 Object* LinkedQueue::desencolar()
 {
-    Node *temporal = new Node();
-    temporal = first;
-    first = first->getAnterior(); 
+    Node *temporal = first;
+    // temporal = first;
+    // first = first->getAnterior(); 
+    // size--;
+    // return temporal->getDato();
+
+    first = first->getSiguiente();
     size--;
     return temporal->getDato();
 }
