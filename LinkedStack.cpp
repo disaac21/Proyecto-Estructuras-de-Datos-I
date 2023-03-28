@@ -8,6 +8,7 @@ LinkedStack::~LinkedStack(){//destructor
 }
 void LinkedStack::anula(){//metodo anula
     delete first;//elimina el nodo First, el cual eliminara a todos
+    top = 0;
 }
 void LinkedStack::push(Object* dato){//metodo que empuja los simbolos
     if(vacia()){//verifica si el nodo First esta vacio
