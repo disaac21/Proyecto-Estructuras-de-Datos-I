@@ -23,15 +23,15 @@ void LinkedQueue::encolar(Object *objeto) // moli gadumd daniel
         size++;
     }
     else if(size==1){
-        first->setSiguiente(temporal);
+        first->setAnterior(temporal);
         ultimo = temporal;
         size++;
     }
     else
     {
         
-        temporal->setAnterior(ultimo);
-        ultimo->setSiguiente(temporal);
+        temporal->setSiguiente(ultimo);
+        ultimo->setAnterior(temporal);
         ultimo = temporal;
         size++;
     }
@@ -43,7 +43,7 @@ void LinkedQueue::imprime()
     for (int i = 0; i < size; i++)
     {
         cout << i+1 << temporal->getDato()->toString() << endl;
-        temporal = temporal->getSiguiente();
+        temporal = temporal->getAnterior();
     }
     
 }
@@ -56,7 +56,7 @@ Object* LinkedQueue::desencolar()
     // size--;
     // return temporal->getDato();
 
-    first = first->getSiguiente();
+    first = first->getAnterior();
     size--;
     return temporal->getDato();
 }
