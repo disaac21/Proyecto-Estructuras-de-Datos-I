@@ -1,6 +1,6 @@
 #include "LinkedStack.h"
 LinkedStack::LinkedStack(){//constructor
-    this->first = nullptr;//inicializa el nodo
+    first = new Node();//inicializa el nodo
     top = 0;//inicializa la cima de la pila en 0
 }
 LinkedStack::~LinkedStack(){//destructor
@@ -19,6 +19,7 @@ void LinkedStack::push(Object* dato){//metodo que empuja los simbolos
         first->setDato(dato);//al nodo first se le asigna el valor que se empuja
         first->setSiguiente(temporal);//Al siguiente valor se asigna el dato que estaba antes en first
     }
+    dato = nullptr;
     top++;
 }
 Object* LinkedStack::peek(){//metodo para ver el elemento al cima de la pila
