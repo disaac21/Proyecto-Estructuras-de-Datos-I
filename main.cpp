@@ -399,7 +399,12 @@ void operacionesCola(TDACola *Cola)
                 break;
             }
             case 3:{
-                cout << "El elemento al frente de la cola es: " << Cola->verfrente()->toString() << endl;
+                if(Cola->IsVacio()){
+                    cout << "La Cola esta vacia" << endl;
+                }
+                else{
+                    cout << "El elemento al frente de la cola es: " << Cola->verfrente()->toString() << endl;
+                }
                 break;
             }
             case 4:{

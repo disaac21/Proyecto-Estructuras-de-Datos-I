@@ -89,12 +89,7 @@ Object* ArrayQueue::desencolar(){
 }
 
 Object* ArrayQueue::verfrente(){
-    if(!IsVacio()){
-        return cola[frente];
-    }
-    else{
-        cout << "La cola esta vacia" << endl;
-    }
+    return cola[frente];
 }
 bool ArrayQueue::IsVacio(){
     return size == 0;
