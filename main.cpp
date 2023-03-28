@@ -569,6 +569,12 @@ int main()
             }
             break;
         }
+        
+        case 4:
+                {
+                    cout << endl;
+                    break;
+                }
 
         default:
         {

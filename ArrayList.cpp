@@ -21,11 +21,13 @@ bool ArrayList::inserta(Object* dato, int pos){ //Inserta un Elemento en una Pos
         
         if (pos == 1 && size == 0) { //Primera Inserción
             ListaTemp[size] = dato;
+            size++;
         } else if (pos == size+1) { //Última Posición
             for (int i = 0; i < size; i++){
                 ListaTemp[i] = this->array[i];
             }
             ListaTemp[size] = dato; //Inserta Dato en Última Posición
+            size++;
         } else {
             for (int i = 0; i <= size; i++) { //Inserción en el Medio de la Lista
                 ListaTemp[i] = this->array[i];
@@ -35,9 +37,9 @@ bool ArrayList::inserta(Object* dato, int pos){ //Inserta un Elemento en una Pos
                     ListaTemp[i] = this->array[i-1]; //Corrimiento
                 }
             }
+            size++;
         }
         this->array = ListaTemp; //Asignacion a Lista Original
-        size++;
     } else {
         return false;
     }
