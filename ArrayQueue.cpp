@@ -133,6 +133,9 @@ void ArrayQueue::anula()
     }
 
     size = 0;
+    capacidad = 6;
+    frente = 0;
+    end = -1;
 
     cout << endl
          << "Cola vacia" << endl;
