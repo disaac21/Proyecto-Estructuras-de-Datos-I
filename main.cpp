@@ -47,6 +47,7 @@ int menuOperacionesLista(){ // Menu de operaciones de las Listas(Array y de Nodo
          << "10. Regresar al Menu Anterior" << endl
          << "Ingrese una opcion: ";
     cin >> opcion;
+    cout << endl;
     return opcion;
 }
 int menuOperacionesPila(){ // Menu de operaciones de las Pilas(Array y de los Nodos)
@@ -62,6 +63,7 @@ int menuOperacionesPila(){ // Menu de operaciones de las Pilas(Array y de los No
          << "7. Regresar al Menu Anterior" << endl
          << "Ingrese una opcion: ";
     cin >> opcion;
+    cout << endl;
     return opcion;
 }
 int menuOperacionesCola(){ // Menu de operaciones de las Colas(Array y de Nodos)
@@ -77,6 +79,7 @@ int menuOperacionesCola(){ // Menu de operaciones de las Colas(Array y de Nodos)
          << "7. Regresar al Menu Anterior" << endl
          << "Ingrese una opcion: ";
     cin >> opcion;
+    cout << endl;
     return opcion;
 }
 
@@ -332,6 +335,8 @@ void operacionesPila(TDAPila *stack){ // Operaciones de Pilas
                 if (stack->vacia())
                     cout << "La Pila no contiene elementos" << endl;
                 else
+                    cout << endl
+                        << " ---------- Pila ---------- " << endl;
                     stack->imprime();
                 break;
             }
@@ -416,6 +421,8 @@ void operacionesCola(TDACola *Cola){ // Operaciones de Colas
                     cout << "La cola no tiene elementos" << endl;
                 }
                 else{
+                    cout << endl
+                        << " ---------- Cola ---------- " << endl;
                     Cola->imprime();
                 }
                 break;
