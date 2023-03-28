@@ -10,6 +10,8 @@ private:
     Object** cola;
     int capacidad;
     int size;
+    int frente;
+    int end;
 public:
     ArrayQueue(/* args */);
     ~ArrayQueue();
