@@ -3,7 +3,7 @@
 ArrayQueue::ArrayQueue()
 {
     size = 0;
-    capacidad = 6;
+    capacidad = 1;
     cola = new Object *[capacidad];
     frente = 0;
     end = -1;
@@ -15,18 +15,29 @@ ArrayQueue::~ArrayQueue()
     delete[] cola; // elimina el arreglo
 }
 
-void ArrayQueue::getSize(){
-    cout << endl << "size: " << size << endl;
-}//TODO eliminar esto
+void ArrayQueue::getSize()
+{
+    cout << endl
+         << "size: " << size << endl;
+    cout << endl
+         << "frente: " << frente << endl;
+    cout << endl
+         << "end: " << end << endl;
+} // TODO eliminar esto
 
 bool ArrayQueue::encolar(Object *objeto)
 {
-    if (size == capacidad)
+    if (end == size)
     {
         capacidad++;
         size++;
-        cola[end + 1] = objeto;
-        end++;
+        if (end != 0)
+        {
+            cola[end + 1] = objeto;
+            end++;
+        }else{
+            cola[end] = objeto;
+        }
         cout << "encolar a " << endl;
     }
     else if ((frente != 0) && (end == capacidad - 1))
@@ -39,7 +50,7 @@ bool ArrayQueue::encolar(Object *objeto)
         cout << "encolar b " << endl;
         size++;
 
-        //size++;
+        // size++;
     }
     else
     {
@@ -47,7 +58,6 @@ bool ArrayQueue::encolar(Object *objeto)
         cola[end + 1] = objeto;
         end++;
         cout << "encolar c " << endl;
-
     }
 }
 
@@ -64,7 +74,7 @@ bool ArrayQueue::desencolar()
         //! el nuevo
         cout << cola[frente]->toString() << endl;
         cola[frente] = nullptr;
-        if (frente == size)
+        if (frente == end)
         {
             frente = 0;
             cout << "desencolar if" << endl;
@@ -75,7 +85,6 @@ bool ArrayQueue::desencolar()
             frente++;
             cout << "desencolar else" << endl;
             size--;
-
         }
 
         // ! el de antes
@@ -129,13 +138,12 @@ void ArrayQueue::imprime()
     else
     {
         cout << endl;
-        for (size_t i = 0; i < size; i++)
+        for (size_t i = 0; i < size; i++) // frente y end
         {
             if (cola[i] != nullptr)
             {
                 cout << i + 1 << ". " << cola[i]->toString() << endl;
             }
-            
         }
     }
 }
