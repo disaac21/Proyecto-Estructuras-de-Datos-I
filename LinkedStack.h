@@ -7,17 +7,17 @@
 using namespace std;
 class LinkedStack : public TDAPila{
 	public:
-		LinkedStack();
-		~LinkedStack();
-		virtual void anula();
-        virtual void push(Object* dato);
-        virtual Object* peek();
-        virtual Object* pop();
-        virtual void imprime();
-        virtual bool vacia();
+		LinkedStack();//constructor
+		~LinkedStack();//destructor
+		virtual void anula();//metodo anula
+        virtual void push(Object* dato);//metodo push
+        virtual Object* peek();//metodo peek
+        virtual Object* pop();//metodo pop
+        virtual void imprime();//metodo imprimir
+        virtual bool vacia();//metodo para verificar si estan vacios los nodos
 
 	protected:
-		Node* first;
-		int top;
+		Node* first;//nodo principal
+		int top;//variable para demostrar la posicion de la cima de la pila
 };
 #endif
