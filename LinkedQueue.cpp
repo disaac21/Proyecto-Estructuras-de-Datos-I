@@ -9,8 +9,8 @@ LinkedQueue::LinkedQueue()
 
 LinkedQueue::~LinkedQueue()
 {
-    if (first)
-        delete first;
+    if (ultimo)
+        delete ultimo;
 }
 
 void LinkedQueue::encolar(Object *objeto)
@@ -53,7 +53,7 @@ Object* LinkedQueue::desencolar()
 {
     Node *temporal = new Node();
     temporal = first;
-    first = first->getSiguiente(); 
+    first = first->getAnterior(); 
     size--;
     return temporal->getDato();
 }
