@@ -421,8 +421,13 @@ void operacionesCola(TDACola *Cola){ // Operaciones de Colas
                 break;
             }
             case 6:{//metodo para vaciar la cola
-                Cola->anula();
-                cout << "Elementos eliminados de la cola exitosamente" << endl;
+                if(Cola->IsVacio()){
+                    cout << "La Cola esta vacia" << endl;
+                }
+                else{
+                    Cola->anula();
+                    cout << "Elementos eliminados de la cola exitosamente" << endl;
+                }
                 break;
             }
             case 7:{//regresar al menu de Trabajo con Colas
