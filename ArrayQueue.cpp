@@ -79,6 +79,9 @@ Object* ArrayQueue::desencolar(){
         size--;
         if(frente+1==capacidad)
             frente=0;
+        else if(size==0){
+            frente == end;
+        }
         else
             frente++;
         return temporal;
