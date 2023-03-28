@@ -25,18 +25,21 @@ Object* LinkedStack::peek(){//metodo para ver el elemento al cima de la pila
     return first->getDato();//retorna el dato que esta en la nodo first
 }
 Object* LinkedStack::pop(){//metodo para sacar elementos de la pila
-    if(top == 1){//verifica si la cima de la pila esta en la primera posicion
-        Node* temporal = first;//se guarda el elemento que se sacara en un nodo temporal
-        first = nullptr;//el nodo first se vuelve nulo
-        top--;//la cima de la pila queda en 0
-        return temporal->getDato();//se retorna el dato que se saco
-    }
-    else{
-        Node* temporal = first;//se guarda el elemento que se sacara en un nodo temporal
-        first = first->getSiguiente();//el nuevo dato del nodo first pasa a ser el dato que estaba al siguiente de el
-        first->setAnterior(nullptr);//valor anterior es nulo
-        top--;//posicion donde esta la cima disminuye una posicion
-        return temporal->getDato();//retorna el dato que se saco
+    if (this->first == nullptr) {
+        cout << endl << "La Lista Está Vacía." << endl;
+    } else {
+        if(top == 1){//verifica si la cima de la pila esta en la primera posicion
+            Node* temporal = first;//se guarda el elemento que se sacara en un nodo temporal
+            first = nullptr;//el nodo first se vuelve nulo
+            top--;//la cima de la pila queda en 0
+            return temporal->getDato();//se retorna el dato que se saco
+        } else{
+            Node* temporal = first;//se guarda el elemento que se sacara en un nodo temporal
+            first = first->getSiguiente();//el nuevo dato del nodo first pasa a ser el dato que estaba al siguiente de el
+            first->setAnterior(nullptr);//valor anterior es nulo
+            top--;//posicion donde esta la cima disminuye una posicion
+            return temporal->getDato();//retorna el dato que se saco
+        }
     }
 }
 void LinkedStack::imprime(){//metodo imprimir los simbolos
@@ -48,5 +51,5 @@ void LinkedStack::imprime(){//metodo imprimir los simbolos
     
 }
 bool LinkedStack::vacia(){//metodo vacia
-    return top = 0;//si esta en 0, el nodo first esta vacio
+    return top == 0;//si esta en 0, el nodo first esta vacio
 }
