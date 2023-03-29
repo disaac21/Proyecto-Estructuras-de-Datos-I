@@ -450,6 +450,8 @@ void operacionesPila(TDAPila *stack)
             if (stack->vacia())
                 cout << "La Pila no contiene elementos" << endl;
             else
+                cout << endl
+                     << " ---------- Cola ---------- " << endl;
                 stack->imprime();
             break;
         }
@@ -547,6 +549,8 @@ void operacionesCola(TDACola *Cola)
             }
             else
             {
+                cout << endl
+                     << " ---------- Pila ---------- " << endl;
                 Cola->imprime();
             }
             break;
