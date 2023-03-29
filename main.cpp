@@ -233,12 +233,18 @@ void operacionesLista(TDALista *WorkingList)
             }
             else
             {
-                int posdelete;
+                string posdelete;
                 cout << endl
                      << "Ingrese la Posición del Alumno a Eliminar: "; // Solicita Posición del Objeto a Eliminar
                 cin >> posdelete;
-                if (posdelete > 0 && posdelete <= WorkingList->getSize()){
-                    Object *AlumnoDelete = WorkingList->suprime(posdelete); // Crea Objeto (Placeholder)
+                while (!isNumber(posdelete))
+                {
+                    cout << endl << "Ingrese un numero " << endl;
+                    cout << "Ingrese la Posición a Insertar el Alumno: ";
+                    cin >> posdelete;
+                }
+                if (stoi(posdelete) > 0 && stoi(posdelete) <= WorkingList->getSize()){
+                    Object *AlumnoDelete = WorkingList->suprime(stoi(posdelete)); // Crea Objeto (Placeholder)
                     cout << endl
                          << "Alumno Eliminado!\nSus Datos Eran: " << AlumnoDelete->toString() << "." << endl; // Muestra Datos del Objeto Eliminado
                 }else
@@ -276,12 +282,18 @@ void operacionesLista(TDALista *WorkingList)
             }
             else
             {
-                int posfind;
+                string posfind;
                 cout << endl
                      << "Ingrese la Posición del Alumno a Encontrar: "; // Pide la Posición del Objeto a Buscar
                 cin >> posfind;
-                Object *AlumnoFind = WorkingList->recupera(posfind); // Obtiene el Objeto en la Posición
-                if (posfind > 0 && posfind <= WorkingList->getSize())
+                while (!isNumber(posfind))
+                {
+                    cout << endl << "Ingrese un numero " << endl;
+                    cout << "Ingrese la Posición a Insertar el Alumno: ";
+                    cin >> posfind;
+                }
+                Object *AlumnoFind = WorkingList->recupera(stoi(posfind)); // Obtiene el Objeto en la Posición
+                if (stoi(posfind) > 0 && stoi(posfind) <= WorkingList->getSize())
                     cout << endl
                          << "Alumno Encontrado!\nSus Datos Son: " << AlumnoFind->toString() << "." << endl; // Muestra Datos del Objeto Encontrado
                 else
@@ -300,15 +312,21 @@ void operacionesLista(TDALista *WorkingList)
             }
             else
             {
-                int posfindnext;
+                string posfindnext;
                 cout << endl
                      << "Ingrese la Posición del Alumno a Encontrar su Siguiente: "; // Pide la Posición del Objeto para Obtener el Próximo
                 cin >> posfindnext;
-                Object *AlumnoFindNext = WorkingList->recupera(posfindnext + 1); // Crea el Objeto con el Siguiente de la Posición
-                if (posfindnext > 0 && posfindnext <= WorkingList->getSize() - 1)
+                while (!isNumber(posfindnext))
+                {
+                    cout << endl << "Ingrese un numero " << endl;
+                    cout << "Ingrese la Posición a Insertar el Alumno: ";
+                    cin >> posfindnext;
+                }
+                Object *AlumnoFindNext = WorkingList->recupera(stoi(posfindnext) + 1); // Crea el Objeto con el Siguiente de la Posición
+                if (stoi(posfindnext) > 0 && stoi(posfindnext) <= WorkingList->getSize() - 1)
                     cout << endl
                          << "Alumno Encontrado!\nSus Datos Son: " << AlumnoFindNext->toString() << "." << endl; // Muestra Datos del Objeto
-                else if (posfindnext == WorkingList->getSize())
+                else if (stoi(posfindnext) == WorkingList->getSize())
                     cout << endl
                          << "Este Alumno es el Último de la Lista." << endl; // Valida Sí Está al Borde Final de la Lista
                 else
@@ -327,15 +345,21 @@ void operacionesLista(TDALista *WorkingList)
             }
             else
             {
-                int posfindprev;
+                string posfindprev;
                 cout << endl
                      << "Ingrese la Posición del Alumno a Encontrar su Anterior: "; // Pide la Posición del Objeto para Obtener el Previo
                 cin >> posfindprev;
-                Object *AlumnoFindPrev = WorkingList->recupera(posfindprev - 1); // Crea el Objeto con el Anterior de la Posición
-                if (posfindprev > 1 && posfindprev <= WorkingList->getSize())
+                while (!isNumber(posfindprev))
+                {
+                    cout << endl << "Ingrese un numero " << endl;
+                    cout << "Ingrese la Posición a Insertar el Alumno: ";
+                    cin >> posfindprev;
+                }
+                Object *AlumnoFindPrev = WorkingList->recupera(stoi(posfindprev) - 1); // Crea el Objeto con el Anterior de la Posición
+                if (stoi(posfindprev) > 1 && stoi(posfindprev) <= WorkingList->getSize())
                     cout << endl
                          << "Alumno Encontrado!\nSus Datos Son: " << AlumnoFindPrev->toString() << "." << endl; // Muestra Datos del Objeto
-                else if (posfindprev == 1)
+                else if (stoi(posfindprev) == 1)
                     cout << endl
                          << "Este Alumno es el Primero de la Lista." << endl; // Valida Sí Está al Comienzo de la Lista
                 else
