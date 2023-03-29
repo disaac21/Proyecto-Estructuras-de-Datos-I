@@ -42,7 +42,7 @@ void LinkedQueue::imprime()
     Node *temporal = first;
     for (int i = 0; i < size; i++)
     {
-        cout << i+1 << temporal->getDato()->toString() << endl;
+        cout << "Pos. "<< i+1 << " - " << temporal->getDato()->toString() << endl;
         temporal = temporal->getAnterior();
     }
     
