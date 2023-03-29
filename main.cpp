@@ -139,7 +139,7 @@ void operacionesLista(TDALista *WorkingList)
         opcion = menuOperacionesLista();
 
         string Nombre = "";
-        int Cuenta; // Atributos Generales
+        string Cuenta; // Atributos Generales
 
         switch (opcion)
         {
@@ -156,17 +156,23 @@ void operacionesLista(TDALista *WorkingList)
                 getline(cin, Nombre);
                 cout << "Ingrese el Número de Cuenta del Alumno: ";
                 cin >> Cuenta;
+                while (!isNumber(Cuenta))
+                {
+                    cout << endl << "Ingrese un Número de Cuenta Válido." << endl;
+                    cout << "Ingrese el Número de Cuenta del Alumno: ";
+                    cin >> Cuenta;
+                }
                 cout << "Ingrese la Posición a Insertar el Alumno: ";
                 cin >> Pos;
                 while (!isNumber(Pos))
                 {
-                    cout << endl << "Ingrese un numero " << endl;
+                    cout << endl << "Ingrese una Posición Válida." << endl;
                     cout << "Ingrese la Posición a Insertar el Alumno: ";
                     cin >> Pos;
                 }
                 
 
-                if (WorkingList->inserta(new Alumno(Nombre, Cuenta), stoi(Pos)) && stoi(Pos) <= WorkingList->getSize())
+                if (WorkingList->inserta(new Alumno(Nombre, stoi(Cuenta)), stoi(Pos)) && stoi(Pos) <= WorkingList->getSize())
                 { // Crea Objeto e Inserta en Lista
                     cout << endl
                          << "Alumno Insertado con Éxito!" << endl;
@@ -209,7 +215,13 @@ void operacionesLista(TDALista *WorkingList)
                 cout << endl
                      << "Ingrese el Número de Cuenta del Alumno a Encontrar: "; // Método de Busqueda: Número de Cuenta
                 cin >> Cuenta;
-                int poscompare = WorkingList->localiza(new Alumno(Nombre, Cuenta)); // Recibe Posición del Objeto
+                while (!isNumber(Cuenta))
+                {
+                    cout << endl << "Ingrese un Número de Cuenta Válido." << endl;
+                    cout << "Ingrese el Número de Cuenta del Alumno: ";
+                    cin >> Cuenta;
+                }
+                int poscompare = WorkingList->localiza(new Alumno(Nombre, stoi(Cuenta))); // Recibe Posición del Objeto
                 if (poscompare > 0 && poscompare <= WorkingList->getSize())
                 {
                     cout << endl
@@ -239,7 +251,7 @@ void operacionesLista(TDALista *WorkingList)
                 cin >> posdelete;
                 while (!isNumber(posdelete))
                 {
-                    cout << endl << "Ingrese un numero " << endl;
+                    cout << endl << "Ingrese una Posición Válida." << endl;
                     cout << "Ingrese la Posición a Insertar el Alumno: ";
                     cin >> posdelete;
                 }
@@ -288,7 +300,7 @@ void operacionesLista(TDALista *WorkingList)
                 cin >> posfind;
                 while (!isNumber(posfind))
                 {
-                    cout << endl << "Ingrese un numero " << endl;
+                    cout << endl << "Ingrese una Posición Válida." << endl;
                     cout << "Ingrese la Posición a Insertar el Alumno: ";
                     cin >> posfind;
                 }
@@ -318,7 +330,7 @@ void operacionesLista(TDALista *WorkingList)
                 cin >> posfindnext;
                 while (!isNumber(posfindnext))
                 {
-                    cout << endl << "Ingrese un numero " << endl;
+                    cout << endl << "Ingrese una Posición Válida." << endl;
                     cout << "Ingrese la Posición a Insertar el Alumno: ";
                     cin >> posfindnext;
                 }
@@ -351,7 +363,7 @@ void operacionesLista(TDALista *WorkingList)
                 cin >> posfindprev;
                 while (!isNumber(posfindprev))
                 {
-                    cout << endl << "Ingrese un numero " << endl;
+                    cout << endl << "Ingrese una Posición Válida." << endl;
                     cout << "Ingrese la Posición a Insertar el Alumno: ";
                     cin >> posfindprev;
                 }
@@ -484,7 +496,7 @@ void operacionesCola(TDACola *Cola)
     {
         opcion = menuOperacionesCola();
         string Nombre = "";
-        int Cuenta;
+        string Cuenta;
 
         switch (opcion)
         {
@@ -498,7 +510,13 @@ void operacionesCola(TDACola *Cola)
                 getline(cin, Nombre);
                 cout << "Ingrese el numero de cuenta del alumno: ";
                 cin >> Cuenta;
-                Cola->encolar(new Alumno(Nombre, Cuenta));
+                while (!isNumber(Cuenta))
+                {
+                    cout << endl << "Ingrese un Número de Cuenta Válido." << endl;
+                    cout << "Ingrese el Número de Cuenta del Alumno: ";
+                    cin >> Cuenta;
+                }
+                Cola->encolar(new Alumno(Nombre, stoi(Cuenta)));
                 cout << "Alumno encolado correctamente" << endl;
                 repetirInserta = repetirCiclo();
             }
