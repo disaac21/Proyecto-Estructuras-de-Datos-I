@@ -550,7 +550,7 @@ int main()
 
     SetConsoleCP(CP_UTF8);
     SetConsoleOutputCP(CP_UTF8);
-    int opcionPrincipal = 0;
+    string opcionPrincipal = "0";
     string opcionLista = "0", opcionPila = "0", opcionCola = "0"; // variables para tomar las opciones de los usuarios
     ArrayList *WorkArrayList = new ArrayList();
     LinkedList *WorkLinkedList = new LinkedList();
@@ -569,8 +569,15 @@ int main()
              << "4. Salir " << endl
              << "Ingrese una Opción: ";
         cin >> opcionPrincipal;
+        while (!isNumber(opcionPrincipal))
+        {
+            cout << endl
+                 << "Porfavor ingrese un numero" << endl
+                 << "Ingrese una opcion: ";
+            cin >> opcionPrincipal;
+        }
 
-        switch (opcionPrincipal)
+        switch (stoi(opcionPrincipal))
         {
         case 1:
         {
@@ -591,7 +598,6 @@ int main()
                          << "Ingrese una opcion: ";
                     cin >> opcionLista;
                 }
-                // TODO --------------------------------
                 switch (stoi(opcionLista))
                 {
                 case 1:
@@ -727,7 +733,7 @@ int main()
             break;
         }
         }
-    } while (opcionPrincipal != 4);
+    } while (stoi(opcionPrincipal) != 4);
     // destructores
     WorkArrayList->~ArrayList();
     WorkLinkedList->~LinkedList();
