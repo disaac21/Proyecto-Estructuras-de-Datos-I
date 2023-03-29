@@ -230,11 +230,11 @@ void operacionesLista(TDALista *WorkingList)
                 cout << endl
                      << "Ingrese la Posición del Alumno a Eliminar: "; // Solicita Posición del Objeto a Eliminar
                 cin >> posdelete;
-                Object *AlumnoDelete = WorkingList->suprime(posdelete); // Crea Objeto (Placeholder)
-                if (posdelete > 0 && posdelete <= WorkingList->getSize())
+                if (posdelete > 0 && posdelete <= WorkingList->getSize()){
+                    Object *AlumnoDelete = WorkingList->suprime(posdelete); // Crea Objeto (Placeholder)
                     cout << endl
                          << "Alumno Eliminado!\nSus Datos Eran: " << AlumnoDelete->toString() << "." << endl; // Muestra Datos del Objeto Eliminado
-                else
+                }else
                     cout << endl
                          << "No Se Ha Encontrado el Alumno." << endl;
             }
