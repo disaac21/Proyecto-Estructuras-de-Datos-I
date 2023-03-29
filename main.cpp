@@ -149,7 +149,7 @@ void operacionesLista(TDALista *WorkingList)
             int repetirInserta = 1;
             while (repetirInserta == 1)
             {
-                int Pos;
+                string Pos;
                 cin.ignore(); // Solicitar Datos
                 cout << endl
                      << "Ingrese el Nombre del Alumno: ";
@@ -158,8 +158,15 @@ void operacionesLista(TDALista *WorkingList)
                 cin >> Cuenta;
                 cout << "Ingrese la Posición a Insertar el Alumno: ";
                 cin >> Pos;
+                while (!isNumber(Pos))
+                {
+                    cout << endl << "Ingrese un numero " << endl;
+                    cout << "Ingrese la Posición a Insertar el Alumno: ";
+                    cin >> Pos;
+                }
+                
 
-                if (WorkingList->inserta(new Alumno(Nombre, Cuenta), Pos) && Pos <= WorkingList->getSize())
+                if (WorkingList->inserta(new Alumno(Nombre, Cuenta), stoi(Pos)) && stoi(Pos) <= WorkingList->getSize())
                 { // Crea Objeto e Inserta en Lista
                     cout << endl
                          << "Alumno Insertado con Éxito!" << endl;
